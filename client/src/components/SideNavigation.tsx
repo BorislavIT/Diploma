@@ -51,11 +51,11 @@ const SideNavigation = () => {
   return (
     <div
       className={`h-full min-h-[calc(100vh-32px)] invisible ease-in-out duration-300
-      ${isExpanded ? "w-[224px]" : "w-[64px]"}`}
+      ${isExpanded ? "w-56" : "w-16 min-w-16"}`}
     >
       <nav
         className={`min-h-[calc(100vh-32px)] duration-300 ease-in-out overflow-hidden transform bg-theme-secondary border border-solid border-theme-border h-0 rounded-md fixed visible z-50 flex flex-col p-4 items-center text-theme-text
-        ${isExpanded ? "w-[224px]" : "w-[64px]"}`}
+        ${isExpanded ? "w-56" : "w-16 min-w-16"}`}
       >
         <div className="flex flex-col gap-4 h-full items-start w-full">
           <div

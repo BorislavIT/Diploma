@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/highcharts": "^7.0.0",
+    "highcharts": "^11.3.0",
+    "highcharts-react-official": "^3.2.1",
     "next": "14.1.0",
     "primeicons": "^6.0.1",
     "primereact": "^10.4.0",
