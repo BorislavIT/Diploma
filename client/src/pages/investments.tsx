@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export default function Home() {
+export const InvestmentsPage = () => {
   return (
     <>
       <Head>
@@ -10,8 +10,9 @@ export default function Home() {
           content="In this page you can view your investments and interact with them."
         />
       </Head>
-
-      <div className="w-full h-full min-h-[inherit]"></div>
+      <div className="w-full h-auto"></div>
     </>
   );
-}
+};
+
+export default InvestmentsPage;
