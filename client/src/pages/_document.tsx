@@ -5,7 +5,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <title>le practise</title>
+          <title>Home page</title>
         </Head>
         <body>
           <Main />
