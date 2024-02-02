@@ -30,18 +30,18 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
     setNewInvestment(null);
   };
 
-  const handleInvestmentCreation = async (investmentData: InvestmentCard) => {
+  const onInvestmentCreate = async (investmentData: InvestmentCard) => {
     try {
       const actionResult = await dispatch(addInvestmentAsync(investmentData));
       unwrapResult(actionResult);
       toast.success("Investment added successfully!");
     } catch (error: any) {
-      toast.error(`Failed to add investment: ${error.message || error}`);
+      toast.error(`Failed to add investment`);
     }
   };
 
   const onCreateInvestmentClicked = () => {
-    handleInvestmentCreation(newInvestment!);
+    onInvestmentCreate(newInvestment!);
     onCloseInvestmentsModal();
   };
 

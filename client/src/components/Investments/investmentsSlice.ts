@@ -52,10 +52,6 @@ const initialState: InvestmentCard[] = [
   },
 ];
 
-type RemoveInvestmentPayload = {
-  id: string;
-};
-
 export const addInvestmentAsync = createAsyncThunk(
   "investmentCards/addInvestment",
   async (investmentData: InvestmentCard, { rejectWithValue }) => {
@@ -78,6 +74,24 @@ export const addInvestmentAsync = createAsyncThunk(
   }
 );
 
+export const removeInvestmentAsync = createAsyncThunk(
+  "investmentCards/removeInvestment",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`/api/investments/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to remove investment");
+      }
+      const data = await response.json();
+      return data.id;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const investmentCardsSlice = createSlice({
   name: "investmentCards",
   initialState,
@@ -88,20 +102,15 @@ export const investmentCardsSlice = createSlice({
         state.push(action.payload);
       }
     );
-  },
-  reducers: {
-    removeInvestment: (
-      state,
-      action: PayloadAction<RemoveInvestmentPayload>
-    ) => {
-      const index = state.findIndex((card) => card.id === action.payload.id);
-      if (index !== -1) {
-        state[index].status = INVESTMENT_STATUS.CLOSED;
-      }
-    },
-  },
-});
 
-export const { removeInvestment } = investmentCardsSlice.actions;
+    builder.addCase(
+      removeInvestmentAsync.fulfilled,
+      (state, action: PayloadAction<string>) => {
+        return state.filter((card) => card.id !== action.payload);
+      }
+    );
+  },
+  reducers: {},
+});
 
 export default investmentCardsSlice.reducer;

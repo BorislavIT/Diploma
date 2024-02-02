@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { INVESTMENT_STATUS, InvestmentCard } from "./constants";
-import { useDispatch } from "react-redux";
-import { removeInvestment } from "./investmentsSlice";
+import { removeInvestmentAsync } from "./investmentsSlice";
+import { useAppDispatch } from "@/hooks/redux";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useToast } from "@/contexts/ToastContext";
 import Button from "../Button";
 
 type IndividualInvestmentCard = {
@@ -11,11 +13,19 @@ type IndividualInvestmentCard = {
 const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
   card: { name, date, status, type, value, id },
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const toast = useToast()!;
 
-  const onCloseCardClicked = () => {
-    dispatch(removeInvestment(id));
+  const onInvestmentClose = async (id: string) => {
+    try {
+      const actionResult = await dispatch(removeInvestmentAsync(id));
+      unwrapResult(actionResult);
+      toast.success("Investment removed successfully!");
+    } catch (error: any) {
+      toast.error(`Failed to remove investment`);
+    }
   };
+
   return (
     <article className="min-w-40 w-full sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] border h-fit border-theme-border border-solid rounded-md flex flex-col flex-wrap items-center text-theme-text p-2">
       <section className="w-full  border-b border-theme-border border-solid pb-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
@@ -41,7 +51,7 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
       </section>
       {status === INVESTMENT_STATUS.ACTIVE && (
         <section className="w-full text-center pt-2">
-          <Button onClick={onCloseCardClicked}>Close</Button>
+          <Button onClick={() => onInvestmentClose(id)}>Close</Button>
         </section>
       )}
     </article>
