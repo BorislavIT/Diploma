@@ -18,23 +18,24 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
   };
   return (
     <article className="min-w-40 w-full sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] border h-fit border-theme-border border-solid rounded-md flex flex-col flex-wrap items-center text-theme-text p-2">
-      <section className="w-full text-center border-b border-theme-border border-solid pb-2">
+      <section className="w-full  border-b border-theme-border border-solid pb-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
         Name: {name}
       </section>
-      <section className="w-full text-center border-b border-theme-border border-solid py-2">
+      <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
         Type: {type}
       </section>
-      <section className="w-full text-center border-b border-theme-border border-solid py-2">
+      <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
         Status: {status}
       </section>
-      <section className="w-full text-center border-b border-theme-border border-solid py-2">
+      <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
         Date: {date}
       </section>
       <section
-        className={`w-full text-center pt-2 ${
+        className={`w-full px-4 pt-2 overflow-hidden text-ellipsis whitespace-nowrap ${
           status === INVESTMENT_STATUS.ACTIVE &&
           "border-b border-theme-border border-solid pb-2"
         }`}
+        title={value}
       >
         Value: {value}
       </section>

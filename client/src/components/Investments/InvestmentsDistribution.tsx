@@ -12,7 +12,7 @@ const InvestmentsDistribution = () => {
 
   return (
     <InvestmentsWidget width="xl:w-[calc(33%-6px)] w-full">
-      <div className="flex flex-row flex-wrap w-full h-full font-bold text-3xl sm:text-4xl text-theme-text">
+      <div className="flex flex-row flex-wrap w-full h-full font-bold text-xl sm:text-4xl text-theme-text">
         <section className="label-row w-full flex-wrap border-2 border-theme-border border-solid rounded-md justify-center items-center">
           <PieChart data={pieChartData} />
         </section>

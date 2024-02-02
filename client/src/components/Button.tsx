@@ -4,7 +4,7 @@ import { FC } from "react";
 const Button: FC<ButtonProps> = (props) => {
   return (
     <PrimeReactButton
-      className="focus:shadow-none bg-theme-primary border border-theme-border border-solid text-theme-text py-1"
+      className="focus:shadow-none bg-theme-primary border border-theme-border border-solid text-theme-text p-2"
       {...props}
     ></PrimeReactButton>
   );
