@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { THEME, breakpoints } from "@/constants";
-import { Button } from "primereact/button";
 import { useTheme } from "@/contexts/ThemeContext";
 import Link from "next/link";
+import Button from "./Button";
 
 type MenuLink = {
   to: string;
