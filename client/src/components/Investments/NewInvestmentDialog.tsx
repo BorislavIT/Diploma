@@ -3,10 +3,11 @@ import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Dispatch, FC, SetStateAction } from "react";
-import { INVESTMENT_STATUS, InvestmentCard } from "./constants";
-import { addInvestment } from "./investmentsSlice";
-import { useDispatch } from "react-redux";
+import { InvestmentCard } from "./constants";
 import { useToast } from "@/contexts/ToastContext";
+import { addInvestmentAsync } from "./investmentsSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useAppDispatch } from "@/redux/store";
 
 type NewInvestmentDialogProps = {
   isVisible: boolean;
@@ -21,7 +22,7 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
   setNewInvestment,
   setIsCreationModalVisible,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const toast = useToast()!;
 
   const onCloseInvestmentsModal = () => {
@@ -29,18 +30,18 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
     setNewInvestment(null);
   };
 
+  const handleInvestmentCreation = async (investmentData: InvestmentCard) => {
+    try {
+      const actionResult = await dispatch(addInvestmentAsync(investmentData));
+      unwrapResult(actionResult);
+      toast.success("Investment added successfully!");
+    } catch (error: any) {
+      toast.error(`Failed to add investment: ${error.message || error}`);
+    }
+  };
+
   const onCreateInvestmentClicked = () => {
-    dispatch(
-      addInvestment({
-        user: {
-          ...newInvestment!,
-          id: "asdokadfgkiadf" + Math.random(),
-          date: new Date().toLocaleDateString(),
-          status: INVESTMENT_STATUS.ACTIVE,
-        },
-        toast,
-      })
-    );
+    handleInvestmentCreation(newInvestment!);
     onCloseInvestmentsModal();
   };
 
