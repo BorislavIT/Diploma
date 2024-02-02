@@ -12,3 +12,12 @@ export enum THEME {
 export const LOCAL_STORAGE_ITEM_KEYS = {
   THEME: "THEME",
 };
+
+export const MODULES = {
+  SETTINGS: {
+    PATH: "/settings",
+  },
+  INVESTMENTS: {
+    PATH: "/investments",
+  },
+};

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Button from "./Button";
-import { THEME, breakpoints } from "@/constants";
+import { MODULES, THEME, breakpoints } from "@/constants";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSideNav } from "@/contexts/SideNavigationContext";
 
@@ -28,12 +28,12 @@ const SideNavigation = () => {
 
   const menuLinks: MenuLink[] = [
     {
-      to: "/investments",
+      to: MODULES.INVESTMENTS.PATH,
       label: "Investments",
       iconClass: "pi-money-bill",
     },
     {
-      to: "/settings",
+      to: MODULES.SETTINGS.PATH,
       label: "Settings",
       iconClass: "pi-cog",
     },
