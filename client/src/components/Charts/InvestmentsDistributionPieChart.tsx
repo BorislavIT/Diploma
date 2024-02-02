@@ -1,20 +1,22 @@
-import React from "react";
 import Highcharts from "highcharts";
 import HighchartsExporting from "highcharts/modules/exporting";
 import HighchartsReact from "highcharts-react-official";
 import { useTheme } from "@/contexts/ThemeContext";
 import { THEME } from "@/constants";
+import { FC } from "react";
 
 // apparently this is a known issue, because the code execution happens twice with next.js (ssr and csr)
 if (typeof Highcharts === "object") {
   HighchartsExporting(Highcharts);
 }
 
-interface PieChartProps {
+interface InvestmentsDistributionPieChartProps {
   data: { name: string; y: number }[];
 }
 
-const PieChart: React.FC<PieChartProps> = ({ data }) => {
+const InvestmentsDistributionPieChart: FC<
+  InvestmentsDistributionPieChartProps
+> = ({ data }) => {
   const { theme } = useTheme()!;
 
   const options: Highcharts.Options = {
@@ -37,7 +39,10 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
       },
     },
     title: {
-      text: undefined,
+      text: "Distribution",
+      style: {
+        color: "var(--theme-text-color)",
+      },
     },
     tooltip: { pointFormat: "{point.y}$" },
     series: [
@@ -51,4 +56,4 @@ const PieChart: React.FC<PieChartProps> = ({ data }) => {
   return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
-export default PieChart;
+export default InvestmentsDistributionPieChart;
