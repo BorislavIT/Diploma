@@ -56,13 +56,16 @@ export const addInvestmentAsync = createAsyncThunk(
   "investmentCards/addInvestment",
   async (investmentData: InvestmentCard, { rejectWithValue }) => {
     try {
-      const response = await fetch("/api/investments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(investmentData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_API_URL}/Investments`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(investmentData),
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to add investment");
       }

@@ -131,9 +131,12 @@ dist
 
 Models/obj/*
 Models/bin/*
+Models/.vs/*
 
 Server/obj/*
 Server/bin/*
-
 Server/.vs/*
-Models/.vs/*
+
+Services/.vs/*
+Services/obj/*
+Services/bin/*

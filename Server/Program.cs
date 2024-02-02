@@ -1,5 +1,6 @@
 using Models;
 using Microsoft.EntityFrameworkCore;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IInvestmentsService, InvestmentsService>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+var CORS_POLICY = "AllowSpecificOrigin";
+builder.Services.AddCors((options) =>
+{
+    options.AddPolicy(CORS_POLICY,
+    builder => builder.WithOrigins("http://localhost:3000")
+                      .AllowAnyMethod()
+                      .AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -27,6 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(CORS_POLICY);
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

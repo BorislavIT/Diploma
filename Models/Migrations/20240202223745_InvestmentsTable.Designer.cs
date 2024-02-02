@@ -12,7 +12,7 @@ using Models;
 namespace Models.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240202130930_InvestmentsTable")]
+    [Migration("20240202223745_InvestmentsTable")]
     partial class InvestmentsTable
     {
         /// <inheritdoc />
@@ -34,11 +34,13 @@ namespace Models.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("DateOfCreation")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
