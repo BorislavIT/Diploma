@@ -40,7 +40,9 @@ export const InvestmentsPage = () => {
           </h1>
           <InvestmentPanel />
           <h1 className="text-theme-text font-bold text-4xl mb-8 mt-8 flex w-full flex-col sm:flex-row flex-wrap sm:flex-nowrap sm:justify-between">
-            <div className="sm:mb-0 mb-4 text-2xl">All Investments</div>
+            <div className="sm:mb-0 mb-4 text-2xl sm:text-4xl">
+              All Investments
+            </div>
             <div>
               <Button onClick={onNewInvestmentClicked}>
                 <span className="hidden md:inline">

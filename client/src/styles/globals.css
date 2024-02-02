@@ -29,3 +29,19 @@ body,
   height: 100%;
   width: 100%;
 }
+
+.fully-visible-toast .p-toast-message-success {
+  background-color: rgba(228, 248, 240, 1);
+}
+
+.fully-visible-toast .p-toast-message-error {
+  background-color: rgba(255, 231, 230, 1);
+}
+
+.fully-visible-toast .p-toast-message-warn {
+  background-color: rgba(255, 242, 226, 1);
+}
+
+.fully-visible-toast .p-toast-message-info {
+  background-color: rgba(219, 234, 254, 1);
+}

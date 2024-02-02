@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { AppProps } from "next/app";
 import { PrimeReactProvider } from "primereact/api";
+import { ToastProvider } from "@/contexts/ToastContext";
 import { SideNavProvider } from "@/contexts/SideNavigationContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Provider } from "react-redux";
@@ -14,15 +15,17 @@ import "primereact/resources/themes/lara-light-blue/theme.css";
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <Provider store={store}>
-      <SideNavProvider>
-        <PrimeReactProvider>
+      <PrimeReactProvider>
+        <SideNavProvider>
           <ThemeProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <ToastProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ToastProvider>
           </ThemeProvider>
-        </PrimeReactProvider>
-      </SideNavProvider>
+        </SideNavProvider>
+      </PrimeReactProvider>
     </Provider>
   );
 };

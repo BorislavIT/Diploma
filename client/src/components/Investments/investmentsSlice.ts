@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INVESTMENT_STATUS, InvestmentCard } from "./constants";
+import { ToastContextValue } from "@/contexts/ToastContext";
 
 const initialState: InvestmentCard[] = [
   {
@@ -56,8 +57,12 @@ export const investmentCardsSlice = createSlice({
   name: "investmentCards",
   initialState,
   reducers: {
-    addInvestment: (state, action: PayloadAction<InvestmentCard>) => {
-      state.push(action.payload);
+    addInvestment: (
+      state,
+      action: PayloadAction<{ user: InvestmentCard; toast: ToastContextValue }>
+    ) => {
+      state.push(action.payload.user);
+      action.payload.toast.success("Sucessfully created a new investment");
     },
     removeInvestment: (state, action: PayloadAction<string>) => {
       const index = state.findIndex((i) => i.id === action.payload);

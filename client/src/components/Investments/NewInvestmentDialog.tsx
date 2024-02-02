@@ -6,6 +6,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { INVESTMENT_STATUS, InvestmentCard } from "./constants";
 import { addInvestment } from "./investmentsSlice";
 import { useDispatch } from "react-redux";
+import { useToast } from "@/contexts/ToastContext";
 
 type NewInvestmentDialogProps = {
   isVisible: boolean;
@@ -21,6 +22,7 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
   setIsCreationModalVisible,
 }) => {
   const dispatch = useDispatch();
+  const toast = useToast()!;
 
   const onCloseInvestmentsModal = () => {
     setIsCreationModalVisible(false);
@@ -30,10 +32,13 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
   const onCreateInvestmentClicked = () => {
     dispatch(
       addInvestment({
-        ...newInvestment!,
-        id: "asdokadfgkiadf" + Math.random(),
-        date: new Date().toLocaleDateString(),
-        status: INVESTMENT_STATUS.ACTIVE,
+        user: {
+          ...newInvestment!,
+          id: "asdokadfgkiadf" + Math.random(),
+          date: new Date().toLocaleDateString(),
+          status: INVESTMENT_STATUS.ACTIVE,
+        },
+        toast,
       })
     );
     onCloseInvestmentsModal();
