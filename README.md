@@ -1,3 +1,12 @@
-# Portfolio-Tracker-Tool-Task
+<h1>Client Requirements:</h1>
 
-This repository will be used to represent my skill infront of Dynamo Software, by solving the task I was given.
+- Node version 20.11.0
+- pnpm version 8.15.0
+
+  ```bash
+  pnpm i
+
+  pnpm dev
+  ```
+
+  Open [http://localhost:3000](http://localhost:3000)
