@@ -1,4 +1,4 @@
-using Models;
+using Data;
 using Microsoft.EntityFrameworkCore;
 using Services;
 
@@ -42,6 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseCors(CORS_POLICY);
 app.UseAuthorization();
 app.MapControllers();

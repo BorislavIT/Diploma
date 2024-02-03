@@ -1,4 +1,4 @@
-﻿using Models;
+﻿using Data;
 
 namespace Server.DTOs
 {

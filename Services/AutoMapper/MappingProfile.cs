@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Models;
+using Data;
 using Server.DTOs;
 
 namespace Services.AutoMapper

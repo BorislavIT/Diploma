@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Models.Migrations
+namespace Data.Migrations
 {
     /// <inheritdoc />
     public partial class InvestmentsTable : Migration

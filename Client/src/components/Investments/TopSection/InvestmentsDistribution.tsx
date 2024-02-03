@@ -1,17 +1,22 @@
+import { investmentSummary } from "../BottomSection/investmentsSlice";
+import { FC } from "react";
 import { useSideNav } from "@/contexts/SideNavigationContext";
 import InvestmentsDistributionPieChart from "@/components/Charts/InvestmentsDistributionPieChart";
 import InvestmentsWidget from "./InvestmentsWidget";
 
-const InvestmentsDistribution = () => {
+type InvestmentsCountWidget = {
+  summary: investmentSummary;
+};
+
+const InvestmentsDistribution: FC<InvestmentsCountWidget> = ({ summary }) => {
   const { isExpanded } = useSideNav();
 
-  const pieChartData = [
-    { name: "Land", y: 30 },
-    { name: "Gold", y: 60 },
-    { name: "Cash", y: 2 },
-    { name: "Stocks", y: 12 },
-    { name: "Crypto", y: 120 },
-  ];
+  const pieChartData = summary.distributedValues.map((dv) => {
+    return {
+      name: dv.type,
+      y: dv.value,
+    };
+  });
 
   return (
     <InvestmentsWidget

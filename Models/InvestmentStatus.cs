@@ -1,4 +1,4 @@
-﻿namespace Models
+﻿namespace Data
 {
     public enum InvestmentStatus
     {

@@ -1,7 +1,13 @@
+import { FC } from "react";
 import { useSideNav } from "@/contexts/SideNavigationContext";
+import { investmentSummary } from "../BottomSection/investmentsSlice";
 import InvestmentsWidget from "./InvestmentsWidget";
 
-const InvestmentsCountWidget = () => {
+type InvestmentsCountWidget = {
+  summary: investmentSummary;
+};
+
+const InvestmentsCountWidget: FC<InvestmentsCountWidget> = ({ summary }) => {
   const { isExpanded } = useSideNav();
 
   return (
@@ -17,7 +23,7 @@ const InvestmentsCountWidget = () => {
               className="overflow-hidden text-ellipsis whitespace-nowrap px-4"
               title="123123213123213123213213213"
             >
-              123123213123213123213213213
+              {summary.activeInvestments}
             </span>
           </div>
           <div className="w-1/2 flex justify-center items-center">
@@ -25,7 +31,7 @@ const InvestmentsCountWidget = () => {
               className="overflow-hidden text-ellipsis whitespace-nowrap px-4"
               title="123123213123213123213213213"
             >
-              123123213123213123213213213
+              {summary.closedInvestments}
             </span>
           </div>
         </section>

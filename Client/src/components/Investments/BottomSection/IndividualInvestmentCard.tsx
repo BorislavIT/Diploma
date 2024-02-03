@@ -1,10 +1,14 @@
 import { FC } from "react";
-import { deleteInvestmentAsync } from "./investmentsSlice";
+import { useAppDispatch } from "@/redux/store";
+import { closeInvestmentAsync } from "./investmentsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useToast } from "@/contexts/ToastContext";
 import { Button } from "primereact/button";
-import { Investment, INVESTMENT_STATUS } from "../constants";
-import { useAppDispatch } from "@/redux/store";
+import {
+  Investment,
+  INVESTMENT_STATUS,
+  INVESTMENT_STATUS_VALUES,
+} from "../constants";
 
 type IndividualInvestmentCard = {
   card: Investment;
@@ -13,18 +17,17 @@ type IndividualInvestmentCard = {
 const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
   card: { name, dateOfCreation, status, type, value, id },
 }) => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
-
+  const dispatch = useAppDispatch();
   const localeDate = new Date(dateOfCreation!).toLocaleDateString();
 
   const onInvestmentClose = async (id: string) => {
     try {
-      const actionResult = await dispatch(deleteInvestmentAsync(id));
+      const actionResult = await dispatch(closeInvestmentAsync(id));
       unwrapResult(actionResult);
-      toast.success("Investment deleted successfully!");
+      toast.success("Investment closed successfully!");
     } catch (error: any) {
-      toast.error(`Failed to delete investment`);
+      toast.error(`Failed to close investment`);
     }
   };
 
@@ -37,7 +40,7 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
         Type: {type}
       </section>
       <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
-        Status: {status === INVESTMENT_STATUS.ACTIVE ? "Active" : "Closed"}
+        Status: {INVESTMENT_STATUS_VALUES[status]}
       </section>
       <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
         Date: {localeDate}
@@ -52,7 +55,7 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
         Value: {value}
       </section>
       {status === INVESTMENT_STATUS.ACTIVE && (
-        <section className="w-full text-center pt-2">
+        <section className="w-full text-center pt-4">
           <Button onClick={() => onInvestmentClose(id!)}>Close</Button>
         </section>
       )}

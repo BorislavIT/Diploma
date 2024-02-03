@@ -30,7 +30,9 @@ const fetchClientAsync = async (
       throw new Error(`Failed to fetch: ${response.statusText}`);
     }
 
-    return response.json();
+    if (method !== HTTP_METHOD.DELETE) {
+      return response.json();
+    }
   } catch (error) {
     throw new Error((error as Error).message || "An error occurred");
   }

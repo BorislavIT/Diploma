@@ -7,15 +7,13 @@ import IndividualInvestmentCard from "./IndividualInvestmentCard";
 const InvestmentsCards = () => {
   const dispatch = useAppDispatch();
 
-  const { data, isLoading } = useSelector(
-    (state: RootState) => state.investments
-  );
+  const { data, error } = useSelector((state: RootState) => state.investments);
 
   useEffect(() => {
     dispatch(fetchAllInvestmentsAsync());
   }, [dispatch]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (error) return <span>{error}</span>;
 
   return (
     <section className="flex flex-row flex-wrap gap-4 w-full">

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Models;
+using Data;
 
 #nullable disable
 
-namespace Models.Migrations
+namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240203010127_InvestmentsTable")]

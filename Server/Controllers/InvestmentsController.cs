@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Server.Controllers.Responses;
 using Server.DTOs;
 using Services;
 
@@ -20,6 +21,25 @@ namespace Server.Controllers
             var investments = await this.investmentsService.GetInvestments();
 
             return Ok(investments);
+        }
+
+        [HttpGet("summary", Name = "Get Investments Summary")]
+        public async Task<IActionResult> GetSummary()
+        {
+            var summary = await this.investmentsService.GetInvestmentsSummary();
+
+            return Ok(summary);
+        }
+
+        [HttpDelete("{id}", Name = "DeleteInvestment")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await this.investmentsService.CloseInvestment(id);
+            if (!result)
+            {
+                return NotFound(new DeleteResponse($"Investment with ID {id} was not found or is already closed."));
+            }
+            return NoContent();
         }
 
         [HttpPost(Name = "Investments")]
