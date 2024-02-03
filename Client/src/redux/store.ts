@@ -1,13 +1,12 @@
-import { investmentCardsSlice } from "@/components/Investments/investmentsSlice";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { investmentsSlice } from "@/components/Investments/BottomSection/investmentsSlice";
 
 export const store = configureStore({
   reducer: {
-    investmentCards: investmentCardsSlice.reducer,
+    investments: investmentsSlice.reducer,
   },
 });
-
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

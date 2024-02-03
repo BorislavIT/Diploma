@@ -1,18 +1,16 @@
+import { Investment } from "@/components/Investments/constants";
+import { useState } from "react";
 import Head from "next/head";
 import Button from "@/components/Button";
-import InvestmentPanel from "@/components/Investments/InvestmentPanel";
-import InvestmentsCards from "@/components/Investments/InvestmentsCards";
-import NewInvestmentDialog from "@/components/Investments/NewInvestmentDialog";
-import { InvestmentCard } from "@/components/Investments/constants";
-import { useState } from "react";
+import InvestmentsCards from "@/components/Investments/BottomSection/InvestmentsCards";
+import NewInvestmentDialog from "@/components/Investments/BottomSection/NewInvestmentDialog";
+import InvestmentPanel from "@/components/Investments/TopSection/InvestmentPanel";
 
 export const InvestmentsPage = () => {
   const [isCreationModalVisible, setIsCreationModalVisible] =
     useState<boolean>(false);
 
-  const [newInvestment, setNewInvestment] = useState<InvestmentCard | null>(
-    null
-  );
+  const [newInvestment, setNewInvestment] = useState<Investment | null>(null);
 
   const onNewInvestmentClicked = () => {
     setIsCreationModalVisible(true);

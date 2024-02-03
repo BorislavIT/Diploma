@@ -3,11 +3,15 @@ export enum INVESTMENT_STATUS {
   CLOSED = "CLOSED",
 }
 
-export type InvestmentCard = {
+export type Investment = {
   type: string;
   status: INVESTMENT_STATUS;
-  date: string;
+  dateOfCreation: string;
   name: string;
-  value: string;
+  value: number;
   id: string;
+};
+
+export const INVESTMENTS_API_URLS = {
+  BASE: "/Investments",
 };

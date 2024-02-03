@@ -3,16 +3,16 @@ import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
 import { Dispatch, FC, SetStateAction } from "react";
-import { InvestmentCard } from "./constants";
 import { useToast } from "@/contexts/ToastContext";
-import { addInvestmentAsync } from "./investmentsSlice";
+import { createInvestmentAsync } from "./investmentsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useAppDispatch } from "@/redux/store";
+import { Investment } from "../constants";
 
 type NewInvestmentDialogProps = {
   isVisible: boolean;
-  newInvestment: InvestmentCard | null;
-  setNewInvestment: Dispatch<SetStateAction<InvestmentCard | null>>;
+  newInvestment: Investment | null;
+  setNewInvestment: Dispatch<SetStateAction<Investment | null>>;
   setIsCreationModalVisible: (value: SetStateAction<boolean>) => void;
 };
 
@@ -23,19 +23,22 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
   setIsCreationModalVisible,
 }) => {
   const dispatch = useAppDispatch();
-  const toast = useToast()!;
+  const toast = useToast();
 
   const onCloseInvestmentsModal = () => {
     setIsCreationModalVisible(false);
     setNewInvestment(null);
   };
 
-  const onInvestmentCreate = async (investmentData: InvestmentCard) => {
+  const onInvestmentCreate = async (investmentData: Investment) => {
     try {
-      const actionResult = await dispatch(addInvestmentAsync(investmentData));
+      const actionResult = await dispatch(
+        createInvestmentAsync(investmentData)
+      );
       unwrapResult(actionResult);
       toast.success("Investment added successfully!");
     } catch (error: any) {
+      console.log(error);
       toast.error(`Failed to add investment`);
     }
   };
@@ -90,10 +93,11 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
           <span className="p-float-label w-full">
             <InputNumber
               className="w-full"
+              min={0}
               onChange={(e) => {
                 setNewInvestment({
                   ...newInvestment!,
-                  value: e.value + "",
+                  value: e.value!,
                 });
               }}
             />

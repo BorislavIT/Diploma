@@ -9,7 +9,7 @@ import { useToast } from "@/contexts/ToastContext";
 export const SettingsPage = () => {
   const [user, setUser] = useState<User>();
 
-  const toast = useToast()!;
+  const toast = useToast();
 
   const onSaveSettingsClicked = () => {
     toast.success("Successfully saved your settings");

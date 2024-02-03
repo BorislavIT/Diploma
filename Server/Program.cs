@@ -4,6 +4,7 @@ using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// we are allowed to use the Models project here, since in .NET 5+ projects automatically include transitive references
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

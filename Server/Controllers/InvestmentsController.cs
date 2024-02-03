@@ -23,10 +23,10 @@ namespace Server.Controllers
         }
 
         [HttpPost(Name = "Investments")]
-        public async Task<IActionResult> Post(InvestmentDTO investment)
+        public async Task<IActionResult> Post(InvestmentDTO investmentDTO)
         {
-            await this.investmentsService.CreateInvestment(investment);
-            return Ok();
+            var investment = await this.investmentsService.CreateInvestment(investmentDTO);
+            return Ok(investment);
         }
     }
 }

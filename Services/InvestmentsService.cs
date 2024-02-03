@@ -16,11 +16,14 @@ namespace Services
             this.mapper = mapper;
         }
 
-        public async Task CreateInvestment(InvestmentDTO investment)
+        public async Task<InvestmentDTO> CreateInvestment(InvestmentDTO investment)
         {
+            investment.DateOfCreation = DateTime.UtcNow;
             var mappedInvestment = this.mapper.Map<Investment>(investment);
             await this.dbContext.Investments.AddAsync(mappedInvestment);
             await this.dbContext.SaveChangesAsync();
+
+            return this.mapper.Map<InvestmentDTO>(mappedInvestment);
         }
 
         public async Task<List<InvestmentDTO>> GetInvestments()

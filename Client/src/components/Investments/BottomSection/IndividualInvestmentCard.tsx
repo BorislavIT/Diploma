@@ -1,24 +1,26 @@
 import { FC } from "react";
-import { INVESTMENT_STATUS, InvestmentCard } from "./constants";
-import { removeInvestmentAsync } from "./investmentsSlice";
-import { useAppDispatch } from "@/hooks/redux";
+import { deleteInvestmentAsync } from "./investmentsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useToast } from "@/contexts/ToastContext";
-import Button from "../Button";
+import { Button } from "primereact/button";
+import { Investment, INVESTMENT_STATUS } from "../constants";
+import { useAppDispatch } from "@/redux/store";
 
 type IndividualInvestmentCard = {
-  card: InvestmentCard;
+  card: Investment;
 };
 
 const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
-  card: { name, date, status, type, value, id },
+  card: { name, dateOfCreation, status, type, value, id },
 }) => {
   const dispatch = useAppDispatch();
-  const toast = useToast()!;
+  const toast = useToast();
+
+  const localeDate = new Date(dateOfCreation).toLocaleDateString();
 
   const onInvestmentClose = async (id: string) => {
     try {
-      const actionResult = await dispatch(removeInvestmentAsync(id));
+      const actionResult = await dispatch(deleteInvestmentAsync(id));
       unwrapResult(actionResult);
       toast.success("Investment removed successfully!");
     } catch (error: any) {
@@ -38,14 +40,14 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
         Status: {status}
       </section>
       <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
-        Date: {date}
+        Date: {localeDate}
       </section>
       <section
         className={`w-full px-4 pt-2 overflow-hidden text-ellipsis whitespace-nowrap ${
           status === INVESTMENT_STATUS.ACTIVE &&
           "border-b border-theme-border border-solid pb-2"
         }`}
-        title={value}
+        title={value + ""}
       >
         Value: {value}
       </section>

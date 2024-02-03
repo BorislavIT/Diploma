@@ -1,6 +1,6 @@
-import InvestmentsDistributionPieChart from "../Charts/InvestmentsDistributionPieChart";
-import InvestmentsWidget from "./InvestmentsWidget";
 import { useSideNav } from "@/contexts/SideNavigationContext";
+import InvestmentsDistributionPieChart from "@/components/Charts/InvestmentsDistributionPieChart";
+import InvestmentsWidget from "./InvestmentsWidget";
 
 const InvestmentsDistribution = () => {
   const { isExpanded } = useSideNav();

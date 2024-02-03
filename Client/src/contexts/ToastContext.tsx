@@ -63,4 +63,4 @@ export const ToastProvider: FC<ToastProviderProps> = ({ children }) => {
   );
 };
 
-export const useToast = () => useContext(ToastContext);
+export const useToast = () => useContext(ToastContext)!;
