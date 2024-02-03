@@ -1,4 +1,4 @@
-import { MODULES } from "@/constants";
+import { MODULES } from "@/shared/constants";
 import { redirect } from "next/navigation";
 
 const Home = () => {
