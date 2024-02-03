@@ -1,4 +1,4 @@
-import { MODULES } from "@/constants";
+import { MODULES } from "@/shared/constants";
 import Link from "next/link";
 import React, { FC } from "react";
 
