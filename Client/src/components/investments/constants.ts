@@ -18,6 +18,6 @@ export type Investment = {
 };
 
 export const INVESTMENTS_API_URLS = {
-  BASE: "/Investments",
-  SUMMARY: "/Summary",
+  BASE: "/investments",
+  SUMMARY: "/summary",
 };

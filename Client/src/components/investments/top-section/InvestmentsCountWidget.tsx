@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { useSideNav } from "@/contexts/SideNavigationContext";
-import { investmentSummary } from "../bottom-section/investmentsSlice";
+import { InvestmentsSummary } from "../investmentsSlice";
 import InvestmentsWidget from "./InvestmentsWidget";
 
 type InvestmentsCountWidget = {
-  summary: investmentSummary;
+  summary: InvestmentsSummary;
 };
 
 const InvestmentsCountWidget: FC<InvestmentsCountWidget> = ({ summary }) => {

@@ -9,12 +9,6 @@ export enum THEME {
   DARK = "DARK",
 }
 
-export type User = {
-  firstName: string;
-  lastName: string;
-  age: number;
-};
-
 export const LOCAL_STORAGE_ITEM_KEYS = {
   THEME: "THEME",
 };

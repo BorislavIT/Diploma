@@ -28,7 +28,7 @@ export const InvestmentsPage = () => {
       />
       <div className="w-full h-auto">
         <section className="w-full flex justify-center flex-row flex-wrap">
-          <h1 className="w-full self-center text-theme-text font-bold text-2xl sm:text-4xl text-center mb-8">
+          <h1 className="w-full text-theme-text font-bold text-2xl sm:text-4xl mb-8">
             Investments summary
           </h1>
           <InvestmentPanel />

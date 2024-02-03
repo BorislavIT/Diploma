@@ -1,6 +1,6 @@
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { FC, SetStateAction, useState } from "react";
+import { FC, SetStateAction } from "react";
 import { useToast } from "@/contexts/ToastContext";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useAppDispatch } from "@/redux/store";
@@ -22,6 +22,20 @@ const initialFormValues: Investment = {
   value: 0,
 };
 
+const investmentSchema = Yup.object().shape({
+  name: Yup.string()
+    .required("Required Field")
+    .min(3, "Name should contain at least 3 characters")
+    .max(40, "Name should not contain more than 40 characters."),
+  type: Yup.string()
+    .required("Required Field")
+    .min(3, "Type should contain at least 3 characters")
+    .max(40, "Type should not contain more than 40 characters."),
+  value: Yup.number()
+    .min(1, "Value must be greater than 0")
+    .required("Required Field"),
+});
+
 const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
   isVisible,
   setIsCreationModalVisible,
@@ -29,26 +43,9 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
   const dispatch = useAppDispatch();
   const toast = useToast();
 
-  const [newInvestment, setNewInvestment] = useState<Investment | null>(null);
-
   const onCloseInvestmentsModal = () => {
     setIsCreationModalVisible(false);
-    setNewInvestment(null);
   };
-
-  const InvestmentSchema = Yup.object().shape({
-    name: Yup.string()
-      .required("Required Field")
-      .min(3, "Name should contain at least 3 characters")
-      .max(40, "Name should not contain more than 40 characters."),
-    type: Yup.string()
-      .required("Required Field")
-      .min(3, "Type should contain at least 3 characters")
-      .max(40, "Type should not contain more than 40 characters."),
-    value: Yup.number()
-      .min(1, "Value must be greater than 0")
-      .required("Required Field"),
-  });
 
   const onSubmit = async (
     values: Investment,
@@ -84,7 +81,7 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
     >
       <Formik
         initialValues={initialFormValues}
-        validationSchema={InvestmentSchema}
+        validationSchema={investmentSchema}
         onSubmit={onSubmit}
       >
         {({ errors, touched, isSubmitting }) => (
