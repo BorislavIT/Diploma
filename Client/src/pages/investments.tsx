@@ -1,4 +1,3 @@
-import { Investment } from "@/components/Investments/constants";
 import { useState } from "react";
 import Head from "next/head";
 import Button from "@/components/Button";
@@ -9,8 +8,6 @@ import InvestmentPanel from "@/components/Investments/TopSection/InvestmentPanel
 export const InvestmentsPage = () => {
   const [isCreationModalVisible, setIsCreationModalVisible] =
     useState<boolean>(false);
-
-  const [newInvestment, setNewInvestment] = useState<Investment | null>(null);
 
   const onNewInvestmentClicked = () => {
     setIsCreationModalVisible(true);
@@ -28,8 +25,6 @@ export const InvestmentsPage = () => {
       <NewInvestmentDialog
         isVisible={isCreationModalVisible}
         setIsCreationModalVisible={setIsCreationModalVisible}
-        setNewInvestment={setNewInvestment}
-        newInvestment={newInvestment}
       />
       <div className="w-full h-auto">
         <section className="w-full flex justify-center flex-row flex-wrap">

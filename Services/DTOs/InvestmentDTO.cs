@@ -8,6 +8,8 @@ namespace Server.DTOs
 
         public string Name { get; set; } = "";
 
+        public string Type { get; set; } = "";
+
         public InvestmentStatus Status { get; set; }
 
         public DateTime? DateOfCreation { get; set; }

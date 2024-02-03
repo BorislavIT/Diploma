@@ -1,15 +1,15 @@
 export enum INVESTMENT_STATUS {
-  ACTIVE = "ACTIVE",
-  CLOSED = "CLOSED",
+  ACTIVE,
+  CLOSED,
 }
 
 export type Investment = {
   type: string;
   status: INVESTMENT_STATUS;
-  dateOfCreation: string;
+  dateOfCreation?: string;
   name: string;
   value: number;
-  id: string;
+  id?: string;
 };
 
 export const INVESTMENTS_API_URLS = {

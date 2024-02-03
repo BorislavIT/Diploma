@@ -12,7 +12,7 @@ using Models;
 namespace Models.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240202223745_InvestmentsTable")]
+    [Migration("20240203010127_InvestmentsTable")]
     partial class InvestmentsTable
     {
         /// <inheritdoc />
@@ -44,6 +44,11 @@ namespace Models.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<double>("Value")
                         .HasColumnType("float");

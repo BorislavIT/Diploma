@@ -16,15 +16,15 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
   const dispatch = useAppDispatch();
   const toast = useToast();
 
-  const localeDate = new Date(dateOfCreation).toLocaleDateString();
+  const localeDate = new Date(dateOfCreation!).toLocaleDateString();
 
   const onInvestmentClose = async (id: string) => {
     try {
       const actionResult = await dispatch(deleteInvestmentAsync(id));
       unwrapResult(actionResult);
-      toast.success("Investment removed successfully!");
+      toast.success("Investment deleted successfully!");
     } catch (error: any) {
-      toast.error(`Failed to remove investment`);
+      toast.error(`Failed to delete investment`);
     }
   };
 
@@ -37,7 +37,7 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
         Type: {type}
       </section>
       <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
-        Status: {status}
+        Status: {status === INVESTMENT_STATUS.ACTIVE ? "Active" : "Closed"}
       </section>
       <section className="w-full  border-b border-theme-border border-solid py-2 overflow-hidden text-ellipsis whitespace-nowrap px-4">
         Date: {localeDate}
@@ -53,7 +53,7 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
       </section>
       {status === INVESTMENT_STATUS.ACTIVE && (
         <section className="w-full text-center pt-2">
-          <Button onClick={() => onInvestmentClose(id)}>Close</Button>
+          <Button onClick={() => onInvestmentClose(id!)}>Close</Button>
         </section>
       )}
     </article>

@@ -1,51 +1,74 @@
 import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
-import { Dispatch, FC, SetStateAction } from "react";
+import { FC, SetStateAction, useState } from "react";
 import { useToast } from "@/contexts/ToastContext";
 import { createInvestmentAsync } from "./investmentsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useAppDispatch } from "@/redux/store";
-import { Investment } from "../constants";
+import { INVESTMENT_STATUS, Investment } from "../constants";
+import { Form, Formik, FormikHelpers } from "formik";
+import * as Yup from "yup";
+import FormikField from "@/components/Formik/FormikField";
 
 type NewInvestmentDialogProps = {
   isVisible: boolean;
-  newInvestment: Investment | null;
-  setNewInvestment: Dispatch<SetStateAction<Investment | null>>;
   setIsCreationModalVisible: (value: SetStateAction<boolean>) => void;
+};
+
+const initialFormValues: Investment = {
+  type: "",
+  name: "",
+  status: INVESTMENT_STATUS.ACTIVE,
+  value: 0,
 };
 
 const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
   isVisible,
-  newInvestment,
-  setNewInvestment,
   setIsCreationModalVisible,
 }) => {
   const dispatch = useAppDispatch();
   const toast = useToast();
+
+  const [newInvestment, setNewInvestment] = useState<Investment | null>(null);
 
   const onCloseInvestmentsModal = () => {
     setIsCreationModalVisible(false);
     setNewInvestment(null);
   };
 
-  const onInvestmentCreate = async (investmentData: Investment) => {
+  const InvestmentSchema = Yup.object().shape({
+    name: Yup.string()
+      .required("Required Field")
+      .min(3, "Name should contain at least 3 characters")
+      .max(40, "Name should not contain more than 40 characters."),
+    type: Yup.string()
+      .required("Required Field")
+      .min(3, "Type should contain at least 3 characters")
+      .max(40, "Type should not contain more than 40 characters."),
+    value: Yup.number()
+      .min(1, "Value must be greater than 0")
+      .required("Required Field"),
+  });
+
+  const onSubmit = async (
+    values: Investment,
+    actions: FormikHelpers<Investment>
+  ) => {
     try {
+      const investmentData: Investment = {
+        ...values,
+        value: Number(values.value),
+      };
       const actionResult = await dispatch(
         createInvestmentAsync(investmentData)
       );
       unwrapResult(actionResult);
-      toast.success("Investment added successfully!");
-    } catch (error: any) {
-      console.log(error);
-      toast.error(`Failed to add investment`);
+      toast.success("Investment created successfully!");
+      onCloseInvestmentsModal();
+    } catch (error) {
+      toast.error("Failed to create investment");
     }
-  };
-
-  const onCreateInvestmentClicked = () => {
-    onInvestmentCreate(newInvestment!);
-    onCloseInvestmentsModal();
+    actions.setSubmitting(false);
   };
 
   return (
@@ -54,59 +77,44 @@ const NewInvestmentDialog: FC<NewInvestmentDialogProps> = ({
       header="New Investment"
       resizable={false}
       visible={isVisible}
-      className="w-screen max-w-96"
+      className="w-screen max-w-lg"
       onHide={onCloseInvestmentsModal}
       contentClassName="bg-theme-primary"
       headerClassName="bg-theme-primary text-theme-text"
     >
-      <div className="w-full flex flex-col flex-wrap gap-4">
-        <section className="w-full text-theme-text">
-          <label>Name</label>
-          <span className="p-float-label w-full">
-            <InputText
-              className="w-full"
-              onChange={(e) => {
-                setNewInvestment({
-                  ...newInvestment!,
-                  name: e.target.value,
-                });
-              }}
+      <Formik
+        initialValues={initialFormValues}
+        validationSchema={InvestmentSchema}
+        onSubmit={onSubmit}
+      >
+        {({ errors, touched, isSubmitting }) => (
+          <Form className="w-full flex flex-col flex-wrap gap-4">
+            <FormikField
+              name="name"
+              label="Name"
+              errors={errors}
+              touched={touched}
             />
-          </span>
-        </section>
-        <section className="w-full text-theme-text">
-          <label>Type</label>
-          <span className="p-float-label w-full">
-            <InputText
-              className="w-full"
-              onChange={(e) => {
-                setNewInvestment({
-                  ...newInvestment!,
-                  type: e.target.value,
-                });
-              }}
+            <FormikField
+              name="type"
+              label="Type"
+              errors={errors}
+              touched={touched}
             />
-          </span>
-        </section>
-        <section className="w-full text-theme-text">
-          <label>Value</label>
-          <span className="p-float-label w-full">
-            <InputNumber
-              className="w-full"
-              min={0}
-              onChange={(e) => {
-                setNewInvestment({
-                  ...newInvestment!,
-                  value: e.value!,
-                });
-              }}
+            <FormikField
+              name="value"
+              label="Value"
+              errors={errors}
+              touched={touched}
             />
-          </span>
-        </section>
-        <section className="w-full text-theme-text text-right">
-          <Button onClick={onCreateInvestmentClicked}>Create</Button>
-        </section>
-      </div>
+            <div className="w-full text-theme-text text-right mt-2">
+              <Button type="submit" disabled={isSubmitting}>
+                Create
+              </Button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </Dialog>
   );
 };
