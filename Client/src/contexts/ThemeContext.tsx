@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_ITEM_KEYS, THEME } from "@/constants";
+import { THEME, LOCAL_STORAGE_ITEM_KEYS } from "@/shared/constants";
 import {
   FC,
   ReactNode,

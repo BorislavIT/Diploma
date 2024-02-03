@@ -1,15 +1,18 @@
-import { breakpoints } from "@/constants";
+import { breakpoints } from "@/shared/constants";
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
   ReactNode,
+  Dispatch,
+  FC,
+  SetStateAction,
 } from "react";
 
 type SideNavContextType = {
   isExpanded: boolean;
-  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsExpanded: Dispatch<SetStateAction<boolean>>;
 };
 
 const SideNavContext = createContext<SideNavContextType | undefined>(undefined);
@@ -20,9 +23,7 @@ type SideNavProviderProps = {
   children: ReactNode;
 };
 
-export const SideNavProvider: React.FC<SideNavProviderProps> = ({
-  children,
-}) => {
+export const SideNavProvider: FC<SideNavProviderProps> = ({ children }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const handleResize = () => {

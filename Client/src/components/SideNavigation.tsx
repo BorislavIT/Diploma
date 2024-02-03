@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Button from "./Button";
-import { MODULES, THEME, breakpoints } from "@/constants";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSideNav } from "@/contexts/SideNavigationContext";
+import { MODULES, THEME, breakpoints } from "@/shared/constants";
 
 type MenuLink = {
   to: string;
