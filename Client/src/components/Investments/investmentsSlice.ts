@@ -2,11 +2,11 @@ import fetchClientAsync, { HTTP_METHOD } from "@/shared/apiUtils";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   Investment,
-  INVESTMENT_STATUS,
   INVESTMENTS_API_URLS,
-} from "../constants";
+  INVESTMENT_STATUS,
+} from "./constants";
 
-type distributedValue = {
+type DistributedValue = {
   value: number;
   type: string;
 };
@@ -15,7 +15,7 @@ export type investmentSummary = {
   activeInvestments: number;
   closedInvestments: number;
   total: number;
-  distributedValues: distributedValue[];
+  distributedValues: DistributedValue[];
 };
 
 type investmentsState = {

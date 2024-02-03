@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/redux/store";
-import { useEffect } from "react";
-import { fetchAllInvestmentsAsync } from "./investmentsSlice";
+import { fetchAllInvestmentsAsync } from "../investmentsSlice";
 import IndividualInvestmentCard from "./IndividualInvestmentCard";
 
 const InvestmentsCards = () => {

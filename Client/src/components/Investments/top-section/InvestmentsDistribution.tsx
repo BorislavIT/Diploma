@@ -1,4 +1,4 @@
-import { investmentSummary } from "../BottomSection/investmentsSlice";
+import { investmentSummary } from "../bottom-section/investmentsSlice";
 import { FC } from "react";
 import { useSideNav } from "@/contexts/SideNavigationContext";
 import InvestmentsDistributionPieChart from "@/components/Charts/InvestmentsDistributionPieChart";

@@ -1,6 +1,6 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { investmentsSlice } from "@/components/Investments/BottomSection/investmentsSlice";
+import { investmentsSlice } from "@/components/investments/investmentsSlice";
 
 export const store = configureStore({
   reducer: {

@@ -2,13 +2,13 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { FC, SetStateAction, useState } from "react";
 import { useToast } from "@/contexts/ToastContext";
-import { createInvestmentAsync } from "./investmentsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useAppDispatch } from "@/redux/store";
 import { INVESTMENT_STATUS, Investment } from "../constants";
+import { createInvestmentAsync } from "../investmentsSlice";
 import { Form, Formik, FormikHelpers } from "formik";
+import FormikField from "@/components/formik/FormikField";
 import * as Yup from "yup";
-import FormikField from "@/components/Formik/FormikField";
 
 type NewInvestmentDialogProps = {
   isVisible: boolean;

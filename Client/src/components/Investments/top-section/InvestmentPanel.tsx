@@ -1,7 +1,7 @@
 import { useAppDispatch, RootState } from "@/redux/store";
 import { useEffect } from "react";
+import { fetchInvestmentsSummary } from "../investmentsSlice";
 import { useSelector } from "react-redux";
-import { fetchInvestmentsSummary } from "../BottomSection/investmentsSlice";
 import InvestmentsCountWidget from "./InvestmentsCountWidget";
 import InvestmentsDistribution from "./InvestmentsDistribution";
 import InvestmentsTotal from "./InvestmentsTotal";

@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { useAppDispatch } from "@/redux/store";
-import { closeInvestmentAsync } from "./investmentsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useToast } from "@/contexts/ToastContext";
 import { Button } from "primereact/button";
@@ -9,6 +8,7 @@ import {
   INVESTMENT_STATUS,
   INVESTMENT_STATUS_VALUES,
 } from "../constants";
+import { closeInvestmentAsync } from "../investmentsSlice";
 
 type IndividualInvestmentCard = {
   card: Investment;

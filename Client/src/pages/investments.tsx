@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Head from "next/head";
 import Button from "@/components/Button";
-import InvestmentsCards from "@/components/Investments/BottomSection/InvestmentsCards";
-import NewInvestmentDialog from "@/components/Investments/BottomSection/NewInvestmentDialog";
-import InvestmentPanel from "@/components/Investments/TopSection/InvestmentPanel";
+import InvestmentsCards from "@/components/investments/bottom-section/InvestmentsCards";
+import NewInvestmentDialog from "@/components/investments/bottom-section/NewInvestmentDialog";
+import InvestmentPanel from "@/components/investments/top-section/InvestmentPanel";
 
 export const InvestmentsPage = () => {
   const [isCreationModalVisible, setIsCreationModalVisible] =
@@ -41,7 +41,7 @@ export const InvestmentsPage = () => {
                 <span className="hidden md:inline">
                   Create New Investment&nbsp;
                 </span>
-                <span className="text-lg">+</span>
+                <span className="text-lg md:hidden">+</span>
               </Button>
             </div>
           </h1>
