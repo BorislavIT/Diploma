@@ -1,4 +1,4 @@
-<h1>Client:</h1>
+<h1>Client</h1>
 
 - Node version 20.11.0
 - pnpm version 8.15.0
