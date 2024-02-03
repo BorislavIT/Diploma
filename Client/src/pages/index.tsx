@@ -1,8 +1,15 @@
 import { MODULES } from "@/shared/constants";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Home = () => {
-  redirect(MODULES.INVESTMENTS.PATH);
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push(MODULES.INVESTMENTS.PATH);
+  }, []);
+
+  return null;
 };
 
 export default Home;
