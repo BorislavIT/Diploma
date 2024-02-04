@@ -128,14 +128,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-Models/obj/*
-Models/bin/*
-Models/.vs/*
-
-Server/obj/*
-Server/bin/*
-Server/.vs/*
-
-Services/.vs/*
-Services/obj/*
-Services/bin/*
+**/obj/*
+**/bin/*
+**/.vs/*
