@@ -1,3 +1,8 @@
+<h1>Useful Links</h1>
+- https://nodejs.org/en/download - installing node.js
+- https://dotnet.microsoft.com/en-us/download/dotnet/8.0 - installing .NET 8 SDK
+- https://www.microsoft.com/en-us/sql-server/sql-server-downloads - installing SQL Server Express
+
 <h1>Running the project</h1>
 
 ## Client
