@@ -30,6 +30,8 @@ const InvestmentsDistributionPieChart: FC<
           format: "<b>{point.name}</b>: {point.percentage:.1f} %",
           style: {
             color: "var(--theme-text-color)",
+            textOutline: "none",
+            fontWeight: "bold",
           },
         },
       },
