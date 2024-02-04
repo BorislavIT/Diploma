@@ -1,32 +1,34 @@
 ﻿using Services.DTOs;
+using Services;
 using System.Text.Json;
 
-namespace Services
+public class SettingsService : ISettingsService
 {
-    public class SettingsService : ISettingsService
+    private readonly IFileService fileService;
+    private readonly string settingsFilePath = "user-settings.json";
+
+    public SettingsService(IFileService fileService)
     {
-        private readonly string SETTINGS_FILE_NAME = "user-settings.json";
+        this.fileService = fileService;
+    }
 
-        public async Task<SettingsDTO> GetSettings()
+    public async Task<SettingsDTO> GetSettings()
+    {
+        if (!fileService.Exists(settingsFilePath))
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), this.SETTINGS_FILE_NAME);
-            if (!File.Exists(filePath))
-            {
-                return new SettingsDTO();
-            }
-
-            var json = await File.ReadAllTextAsync(filePath);
-
-            return JsonSerializer.Deserialize<SettingsDTO>(json)!;
+            return new SettingsDTO();
         }
 
-        public async Task<SettingsDTO> SaveSettings(SettingsDTO settings)
-        {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), this.SETTINGS_FILE_NAME);
-            var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
-            await File.WriteAllTextAsync(filePath, json);
+        var json = await fileService.ReadAllTextAsync(settingsFilePath);
 
-            return settings;
-        }
+        return JsonSerializer.Deserialize<SettingsDTO>(json)!;
+    }
+
+    public async Task<SettingsDTO> SaveSettings(SettingsDTO settings)
+    {
+        var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+        await fileService.WriteAllTextAsync(settingsFilePath, json);
+
+        return settings;
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using Server.DTOs;
 using Services.DTOs;
+using Data.Models;
 
 namespace Services
 {

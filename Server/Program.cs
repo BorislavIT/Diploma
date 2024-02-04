@@ -13,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IInvestmentsService, InvestmentsService>();
-builder.Services.AddScoped<ISettingsService, SettingsService>();
+builder.Services.AddSingleton<IFileService, FileService>();
+builder.Services.AddSingleton<ISettingsService, SettingsService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
