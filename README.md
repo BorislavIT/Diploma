@@ -31,3 +31,23 @@ For ease of starting the project ASAP, I have included the appsettings.json, whi
 ```json
 "DefaultConnection": "Server=.\\SQLEXPRESS;Database=Investments;Trusted_Connection=True;Encrypt=False;"
 ```
+
+<h1>Tech Stack</h1>
+
+## Client
+
+- pnpm - because it's superior of npm in every way shape and form
+- Typescript
+- React (Next.js), I used next.js for fun basically, I hadn't used it previously and was interested 😉
+- Redux - for state management
+- Tailwind css - for styling
+- Highcharts - for charts
+- primereact - for a component library
+- formik - for better handling of forms
+- jest, test-library@react and babel - for unit tests
+
+## Server
+
+- ASP.NET Core Web API
+- Sql Express
+- xUnit and Moq - for unit tests
