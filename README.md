@@ -17,11 +17,17 @@
 ## Server
 
 - .NET v8.0.101
-- SQL Server
+- SQL Server Express
 
 ```bash
     # Steps in order to run the server app
 
     cd ./Server
     dotnet run
+```
+
+For ease of starting the project ASAP, I have included the appsettings.json, which includes the DB connection string, make sure its correct for you.
+
+```json
+"DefaultConnection": "Server=.\\SQLEXPRESS;Database=Investments;Trusted_Connection=True;Encrypt=False;"
 ```
