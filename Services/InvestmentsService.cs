@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Data;
-using Server.DTOs;
 using Services.DTOs;
 using Data.Models;
 
@@ -56,7 +55,7 @@ namespace Services
             var totalInvested = await this.dbContext.Investments
                 .SumAsync(i => i.Value);
 
-            var groupedByThingy = await this.dbContext.Investments
+            var distributedValues = await this.dbContext.Investments
                 .GroupBy(i => i.Type)
                 .Select(g => new DistributedValueDTO
                 {
@@ -65,7 +64,7 @@ namespace Services
                 })
                 .ToListAsync();
 
-            var summary = new InvestmentSummaryDTO(activeInvestments, closedInvestments, totalInvested, groupedByThingy);
+            var summary = new InvestmentSummaryDTO(activeInvestments, closedInvestments, totalInvested, distributedValues);
             return summary;
         }
     }

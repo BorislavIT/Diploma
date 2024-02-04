@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Server.Controllers.Responses;
-using Server.DTOs;
 using Services;
+using Services.DTOs;
 
 namespace Server.Controllers
 {

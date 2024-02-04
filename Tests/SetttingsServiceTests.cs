@@ -1,65 +1,67 @@
 ﻿using Moq;
-using Services;
 using Services.DTOs;
 using System.Text.Json;
 using Xunit;
 
-public class SettingsServiceTests
+namespace Services.Tests
 {
-    private readonly Mock<IFileService> fileServiceMock;
-    private readonly SettingsService settingsService;
-
-    public SettingsServiceTests()
+    public class SettingsServiceTests
     {
-        fileServiceMock = new Mock<IFileService>();
-        settingsService = new SettingsService(fileServiceMock.Object);
-    }
+        private readonly Mock<IFileService> fileServiceMock;
+        private readonly SettingsService settingsService;
 
-    [Fact]
-    public async Task GetSettings_FileDoesNotExist_ReturnsNewSettingsDTO()
-    {
-        fileServiceMock.Setup(fs => fs.Exists(It.IsAny<string>())).Returns(false);
+        public SettingsServiceTests()
+        {
+            fileServiceMock = new Mock<IFileService>();
+            settingsService = new SettingsService(fileServiceMock.Object);
+        }
 
-        var settings = await settingsService.GetSettings();
+        [Fact]
+        public async Task GetSettings_FileDoesNotExist_ReturnsNewSettingsDTO()
+        {
+            fileServiceMock.Setup(fs => fs.Exists(It.IsAny<string>())).Returns(false);
 
-        string expectedJson = JsonSerializer.Serialize(new SettingsDTO());
-        string resultJson = JsonSerializer.Serialize(settings);
+            var settings = await settingsService.GetSettings();
 
-        Assert.Equal(expectedJson, resultJson);
-    }
+            string expectedJson = JsonSerializer.Serialize(new SettingsDTO());
+            string resultJson = JsonSerializer.Serialize(settings);
 
-    [Fact]
-    public async Task GetSettings_FileExists_ReturnsDeserializedSettingsDTO()
-    {
-        var expectedSettings = new SettingsDTO();
-        var serializedSettings = JsonSerializer.Serialize(expectedSettings);
-        fileServiceMock.Setup(fs => fs.Exists(It.IsAny<string>())).Returns(true);
-        fileServiceMock.Setup(fs => fs.ReadAllTextAsync(It.IsAny<string>())).ReturnsAsync(serializedSettings);
+            Assert.Equal(expectedJson, resultJson);
+        }
 
-        var result = await settingsService.GetSettings();
+        [Fact]
+        public async Task GetSettings_FileExists_ReturnsDeserializedSettingsDTO()
+        {
+            var expectedSettings = new SettingsDTO();
+            var serializedSettings = JsonSerializer.Serialize(expectedSettings);
+            fileServiceMock.Setup(fs => fs.Exists(It.IsAny<string>())).Returns(true);
+            fileServiceMock.Setup(fs => fs.ReadAllTextAsync(It.IsAny<string>())).ReturnsAsync(serializedSettings);
 
-        string expectedJson = JsonSerializer.Serialize(expectedSettings);
-        string resultJson = JsonSerializer.Serialize(result);
+            var result = await settingsService.GetSettings();
 
-        Assert.Equal(expectedJson, resultJson);
-    }
+            string expectedJson = JsonSerializer.Serialize(expectedSettings);
+            string resultJson = JsonSerializer.Serialize(result);
 
-    [Fact]
-    public async Task SaveSettings_WritesSerializedSettingsToFile()
-    {
-        var settings = new SettingsDTO();
-        string writtenContent = null;
-        fileServiceMock.Setup(fs => fs.WriteAllTextAsync(It.IsAny<string>(), It.IsAny<string>()))
-            .Callback<string, string>((path, content) => writtenContent = content)
-            .Returns(Task.CompletedTask);
+            Assert.Equal(expectedJson, resultJson);
+        }
 
-        var result = await settingsService.SaveSettings(settings);
+        [Fact]
+        public async Task SaveSettings_WritesSerializedSettingsToFile()
+        {
+            var settings = new SettingsDTO();
+            string writtenContent = null;
+            fileServiceMock.Setup(fs => fs.WriteAllTextAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .Callback<string, string>((path, content) => writtenContent = content)
+                .Returns(Task.CompletedTask);
 
-        var deserializedSettings = JsonSerializer.Deserialize<SettingsDTO>(writtenContent);
+            var result = await settingsService.SaveSettings(settings);
 
-        string expectedJson = JsonSerializer.Serialize(settings);
-        string resultJson = JsonSerializer.Serialize(deserializedSettings);
+            var deserializedSettings = JsonSerializer.Deserialize<SettingsDTO>(writtenContent);
 
-        Assert.Equal(expectedJson, resultJson);
+            string expectedJson = JsonSerializer.Serialize(settings);
+            string resultJson = JsonSerializer.Serialize(deserializedSettings);
+
+            Assert.Equal(expectedJson, resultJson);
+        }
     }
 }
