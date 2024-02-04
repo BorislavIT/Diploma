@@ -1,6 +1,6 @@
 import { useAppDispatch, RootState } from "@/redux/store";
 import { useEffect } from "react";
-import { fetchInvestmentsSummary } from "../investmentsSlice";
+import { fetchInvestmentsSummaryAsync } from "../investmentsSlice";
 import { useSelector } from "react-redux";
 import InvestmentsCountWidget from "./InvestmentsCountWidget";
 import InvestmentsDistribution from "./InvestmentsDistribution";
@@ -14,7 +14,7 @@ const InvestmentPanel = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchInvestmentsSummary());
+    dispatch(fetchInvestmentsSummaryAsync());
   }, [dispatch]);
 
   if (error) return <span>{error}</span>;

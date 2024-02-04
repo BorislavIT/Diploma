@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, createContext, useContext, useRef } from "react";
+import { FC, ReactNode, createContext, useContext, useRef } from "react";
 import { Toast } from "primereact/toast";
 
 export type ToastContextValue = {
@@ -8,7 +8,7 @@ export type ToastContextValue = {
   error: (summary: string, detail?: string) => void;
 };
 
-const ToastContext = createContext<ToastContextValue | undefined>(undefined);
+export const ToastContext = createContext<ToastContextValue | null>(null);
 
 type ToastProviderProps = {
   children: ReactNode;

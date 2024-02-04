@@ -1,9 +1,8 @@
-import React from "react";
-import Link from "next/link";
-import Button from "./Button";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useSideNav } from "@/contexts/SideNavigationContext";
 import { MODULES, THEME, breakpoints } from "@/shared/constants";
+import Link from "next/link";
+import Button from "./Button";
 
 type MenuLink = {
   to: string;
@@ -12,7 +11,7 @@ type MenuLink = {
 };
 
 const SideNavigation = () => {
-  const { theme, toggleTheme } = useTheme()!;
+  const { theme, toggleTheme } = useTheme();
   const { isExpanded, setIsExpanded } = useSideNav();
 
   const onToggleSideMenuClicked = () => {

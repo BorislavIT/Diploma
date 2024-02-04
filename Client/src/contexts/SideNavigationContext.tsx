@@ -1,5 +1,5 @@
 import { breakpoints } from "@/shared/constants";
-import React, {
+import {
   createContext,
   useContext,
   useState,
@@ -15,7 +15,7 @@ type SideNavContextType = {
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
 };
 
-const SideNavContext = createContext<SideNavContextType | undefined>(undefined);
+const SideNavContext = createContext<SideNavContextType | null>(null);
 
 export const useSideNav = (): SideNavContextType => useContext(SideNavContext)!;
 

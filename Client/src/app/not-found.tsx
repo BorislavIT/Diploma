@@ -1,13 +1,12 @@
 import { MODULES } from "@/shared/constants";
 import Link from "next/link";
-import React, { FC } from "react";
 
 export const metadata = {
   title: "404 - Not Found",
   description: "This page is shown when the requested page is not found.",
 };
 
-const NotFoundPage: FC = () => {
+const NotFoundPage = () => {
   return (
     <div className="flex justify-center items-center h-screen w-screen">
       <div className="flex flex-col gap-4 items-center">

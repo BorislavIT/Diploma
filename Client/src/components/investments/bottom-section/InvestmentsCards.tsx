@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/redux/store";
-import { fetchAllInvestmentsAsync } from "../investmentsSlice";
+import { fetchInvestmentsAsync } from "../investmentsSlice";
 import IndividualInvestmentCard from "./IndividualInvestmentCard";
 
 const InvestmentsCards = () => {
@@ -10,7 +10,7 @@ const InvestmentsCards = () => {
   const { data, error } = useSelector((state: RootState) => state.investments);
 
   useEffect(() => {
-    dispatch(fetchAllInvestmentsAsync());
+    dispatch(fetchInvestmentsAsync());
   }, [dispatch]);
 
   if (error) return <span>{error}</span>;

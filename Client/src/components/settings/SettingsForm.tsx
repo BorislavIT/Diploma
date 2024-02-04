@@ -31,7 +31,7 @@ const investmentSchema = Yup.object().shape({
     .required("Required Field"),
 });
 
-const Settings = () => {
+const SettingsForm = () => {
   const toast = useToast();
   const dispatch = useAppDispatch();
 
@@ -103,4 +103,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default SettingsForm;

@@ -1,5 +1,5 @@
-import { Field, FormikErrors, FormikTouched } from "formik";
 import { FC } from "react";
+import { Field, FormikErrors, FormikTouched } from "formik";
 
 type FormikFieldProps = {
   name: string;
@@ -19,8 +19,8 @@ const FormikField: FC<FormikFieldProps> = ({
 
   return (
     <div className="w-full text-theme-text">
-      <label htmlFor="name">{label}</label>
-      <Field name={name} className="w-full p-inputtext" />
+      <label htmlFor={name}>{label}</label>
+      <Field name={name} id={name} className="w-full p-inputtext" />
       <p className="text-red-500">{errorMessage}</p>
     </div>
   );

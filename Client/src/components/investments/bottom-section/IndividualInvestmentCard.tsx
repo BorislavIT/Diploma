@@ -21,7 +21,7 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
   const dispatch = useAppDispatch();
   const localeDate = new Date(dateOfCreation!).toLocaleDateString();
 
-  const onInvestmentClose = async (id: string) => {
+  const onInvestmentsClose = async (id: string) => {
     try {
       const actionResult = await dispatch(closeInvestmentAsync(id));
       unwrapResult(actionResult);
@@ -56,7 +56,7 @@ const IndividualInvestmentCard: FC<IndividualInvestmentCard> = ({
       </section>
       {status === INVESTMENT_STATUS.ACTIVE && (
         <section className="w-full text-center pt-4">
-          <Button onClick={() => onInvestmentClose(id!)}>Close</Button>
+          <Button onClick={() => onInvestmentsClose(id!)}>Close</Button>
         </section>
       )}
     </article>

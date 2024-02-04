@@ -47,7 +47,7 @@ export const createInvestmentAsync = createAsyncThunk(
         investmentData
       ).catch((error: any) => rejectWithValue(error));
 
-      dispatch(fetchInvestmentsSummary());
+      dispatch(fetchInvestmentsSummaryAsync());
 
       return response;
     } catch (error: any) {
@@ -56,7 +56,7 @@ export const createInvestmentAsync = createAsyncThunk(
   }
 );
 
-export const fetchAllInvestmentsAsync = createAsyncThunk(
+export const fetchInvestmentsAsync = createAsyncThunk(
   "investments/FetchAll",
   async (_, { rejectWithValue }) =>
     await fetchClientAsync(INVESTMENTS_API_URLS.BASE, HTTP_METHOD.GET).catch(
@@ -64,7 +64,7 @@ export const fetchAllInvestmentsAsync = createAsyncThunk(
     )
 );
 
-export const fetchInvestmentsSummary = createAsyncThunk(
+export const fetchInvestmentsSummaryAsync = createAsyncThunk(
   "investments/FetchSummary",
   async (_, { rejectWithValue }) =>
     await fetchClientAsync(
@@ -82,7 +82,7 @@ export const closeInvestmentAsync = createAsyncThunk(
         HTTP_METHOD.DELETE
       );
 
-      dispatch(fetchInvestmentsSummary());
+      dispatch(fetchInvestmentsSummaryAsync());
 
       return id;
     } catch (error: any) {
@@ -113,11 +113,11 @@ export const investmentsSlice = createSlice({
       }
     );
 
-    builder.addCase(fetchAllInvestmentsAsync.fulfilled, (state, action) => {
+    builder.addCase(fetchInvestmentsAsync.fulfilled, (state, action) => {
       state.data = action.payload;
     });
 
-    builder.addCase(fetchInvestmentsSummary.fulfilled, (state, action) => {
+    builder.addCase(fetchInvestmentsSummaryAsync.fulfilled, (state, action) => {
       state.summary = action.payload;
     });
 
@@ -127,8 +127,8 @@ export const investmentsSlice = createSlice({
       ): action is ReturnType<
         | typeof createInvestmentAsync.fulfilled
         | typeof closeInvestmentAsync.fulfilled
-        | typeof fetchAllInvestmentsAsync.fulfilled
-        | typeof fetchInvestmentsSummary.fulfilled
+        | typeof fetchInvestmentsAsync.fulfilled
+        | typeof fetchInvestmentsSummaryAsync.fulfilled
       > => action.type.endsWith("/fulfilled"),
       (state, _action) => {
         state.isLoading = false;
@@ -142,8 +142,8 @@ export const investmentsSlice = createSlice({
       ): action is ReturnType<
         | typeof createInvestmentAsync.pending
         | typeof closeInvestmentAsync.pending
-        | typeof fetchAllInvestmentsAsync.pending
-        | typeof fetchInvestmentsSummary.pending
+        | typeof fetchInvestmentsAsync.pending
+        | typeof fetchInvestmentsSummaryAsync.pending
       > => action.type.endsWith("/pending"),
       (state, _action) => {
         state.isLoading = true;
@@ -156,8 +156,8 @@ export const investmentsSlice = createSlice({
       ): action is ReturnType<
         | typeof createInvestmentAsync.rejected
         | typeof closeInvestmentAsync.rejected
-        | typeof fetchAllInvestmentsAsync.rejected
-        | typeof fetchInvestmentsSummary.rejected
+        | typeof fetchInvestmentsAsync.rejected
+        | typeof fetchInvestmentsSummaryAsync.rejected
       > => action.type.endsWith("/rejected"),
       (state, action) => {
         state.isLoading = false;

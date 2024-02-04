@@ -6,7 +6,7 @@ const Button: FC<ButtonProps> = (props) => {
     <PrimeReactButton
       className="focus:shadow-none bg-theme-primary border border-theme-border border-solid text-theme-text p-2"
       {...props}
-    ></PrimeReactButton>
+    />
   );
 };
 

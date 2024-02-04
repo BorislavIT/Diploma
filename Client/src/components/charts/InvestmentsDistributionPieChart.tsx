@@ -1,9 +1,7 @@
+import { FC } from "react";
 import Highcharts from "highcharts";
 import HighchartsExporting from "highcharts/modules/exporting";
 import HighchartsReact from "highcharts-react-official";
-import { useTheme } from "@/contexts/ThemeContext";
-import { FC } from "react";
-import { THEME } from "@/shared/constants";
 
 // apparently this is a known issue, because the code execution happens twice with next.js (ssr and csr)
 if (typeof Highcharts === "object") {
@@ -17,8 +15,6 @@ interface InvestmentsDistributionPieChartProps {
 const InvestmentsDistributionPieChart: FC<
   InvestmentsDistributionPieChartProps
 > = ({ data }) => {
-  const { theme } = useTheme()!;
-
   const options: Highcharts.Options = {
     chart: {
       type: "pie",
@@ -33,7 +29,7 @@ const InvestmentsDistributionPieChart: FC<
           enabled: true,
           format: "<b>{point.name}</b>: {point.percentage:.1f} %",
           style: {
-            color: `${theme === THEME.DARK ? "white" : "black"}`,
+            color: "var(--theme-text-color)",
           },
         },
       },
