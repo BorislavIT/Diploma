@@ -1,4 +1,4 @@
-<h1>Project requirements</h1>
+<h1>Running the project</h1>
 
 ## Client
 
