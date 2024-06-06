@@ -12,11 +12,8 @@ const NotFoundPage = () => {
       <div className="flex flex-col gap-4 items-center">
         <div className="text-3xl">Page not found!</div>
         <div className="text-2xl">
-          <Link
-            href={MODULES.INVESTMENTS.PATH}
-            className="underline text-blue-500"
-          >
-            Click here to go to the investments page
+          <Link href={MODULES.HOME} className="underline text-pink-500">
+            Click here to go to the home page
           </Link>
         </div>
       </div>

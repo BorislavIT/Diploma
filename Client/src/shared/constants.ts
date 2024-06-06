@@ -14,10 +14,31 @@ export const LOCAL_STORAGE_ITEM_KEYS = {
 };
 
 export const MODULES = {
-  SETTINGS: {
-    PATH: "/settings",
+  HOME: "/",
+  ACCOUNT: {
+    LOGIN: "/login",
+    REGISTER: "/register",
   },
-  INVESTMENTS: {
-    PATH: "/investments",
+  SHOP: {
+    PATH: "/shop",
   },
+  ORDERS: {
+    PATH: "/orders",
+  },
+};
+
+export const ENDPOINTS = {
+  ACCOUNT: {
+    PATH: "/Account",
+    LOGIN: "/Login",
+    IDENTIFY: "/Identify",
+    REGISTER: "/Register",
+  },
+  MP3S: {
+    PATH: "/Mp3",
+  },
+};
+
+export const COOKIE_NAMES = {
+  AUTH_TOKEN: "authToken",
 };

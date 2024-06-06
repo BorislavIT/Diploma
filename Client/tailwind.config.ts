@@ -16,12 +16,10 @@ const config: Config = {
     },
     extend: {
       colors: {
-        theme: {
-          primary: "var(--theme-primary-color)",
-          secondary: "var(--theme-secondary-color)",
-          text: "var(--theme-text-color)",
-          border: "var(--theme-border-color)",
-        },
+        dark: "#1c1c1c",
+        text: "white",
+        blue: "#00ccff",
+        pink: "#FF0000",
       },
     },
   },

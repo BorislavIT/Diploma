@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Data.Models;
-using Services.DTOs;
+using Server.DTOs;
 
 namespace Services.AutoMapper
 {
@@ -8,8 +8,8 @@ namespace Services.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<Investment, InvestmentDTO>();
-            CreateMap<InvestmentDTO, Investment>();
+            CreateMap<Account, AccountDTO>();
+            CreateMap<AccountDTO, Account>();
         }
     }
 }

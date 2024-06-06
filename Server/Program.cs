@@ -1,6 +1,9 @@
 using Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Server.Middlewares;
 using Services;
+using Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IInvestmentsService, InvestmentsService>();
-builder.Services.AddSingleton<IFileService, FileService>();
-builder.Services.AddSingleton<ISettingsService, SettingsService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICookieService, CookieService>();
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -24,7 +27,9 @@ builder.Services.AddCors((options) =>
     options.AddPolicy(CORS_POLICY,
     builder => builder.WithOrigins("http://localhost:3000")
                       .AllowAnyMethod()
-                      .AllowAnyHeader());
+                      .AllowAnyHeader()
+                      .AllowCredentials())
+        ;
 });
 
 var app = builder.Build();
@@ -43,6 +48,20 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+app.UseMiddleware<AccessValidationMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Mp3Files")),
+    RequestPath = "/mp3"
+});
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "thumbnails")),
+    RequestPath = "/thumbnails"
+});
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors(CORS_POLICY);

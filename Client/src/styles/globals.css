@@ -45,3 +45,77 @@ body,
 .fully-visible-toast .p-toast-message-info {
   background-color: rgba(219, 234, 254, 1);
 }
+
+.scrollbar-custom {
+  scrollbar-width: thin;
+  scrollbar-color: #ff0000 transparent; /* Adjust colors as needed */
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px; /* Adjust width as needed */
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: white; /* Track color */
+}
+
+.custom-audio-player .rhap_container {
+  background-color: #ff0000; /* Apply background color to the container */
+}
+
+.custom-audio-player .rhap_progress-bar {
+  background-color: white;
+}
+
+.custom-audio-player .rhap_progress-indicator {
+  background-color: white;
+}
+
+.custom-audio-player .rhap_current-time {
+  color: white;
+}
+
+.custom-audio-player .rhap_total-time {
+  color: white;
+}
+
+.custom-audio-player .rhap_additional-controls * {
+  color: white;
+  fill: white;
+}
+
+.custom-audio-player .rhap_volume-container * {
+  color: white;
+  fill: white;
+}
+
+.custom-audio-player .rhap_volume-bar {
+  background-color: white;
+}
+
+.custom-audio-player .rhap_volume-indicator {
+  background-color: white;
+}
+
+.custom-audio-player .rhap_main-controls * {
+  fill: white;
+}
+
+.custom-audio-player .rhap_progress-filled {
+  background-color: #1c1c1c;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left 10s linear infinite;
+}

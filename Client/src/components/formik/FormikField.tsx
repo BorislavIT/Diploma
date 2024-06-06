@@ -6,6 +6,7 @@ type FormikFieldProps = {
   label: string;
   errors: FormikErrors<any>;
   touched: FormikTouched<any>;
+  type?: string;
 };
 
 const FormikField: FC<FormikFieldProps> = ({
@@ -13,15 +14,21 @@ const FormikField: FC<FormikFieldProps> = ({
   errors,
   label,
   touched,
+  type,
 }) => {
   const errorMessage =
     errors[name] && touched[name] && (errors[name] as string);
 
   return (
-    <div className="w-full text-theme-text">
+    <div className="w-full">
       <label htmlFor={name}>{label}</label>
-      <Field name={name} id={name} className="w-full p-inputtext" />
-      <p className="text-red-500">{errorMessage}</p>
+      <Field
+        type={type}
+        name={name}
+        id={name}
+        className="w-full p-inputtext h-11 text-theme-value pl-2 text-black"
+      />
+      <p className="text-red-500 mt-1">{errorMessage}</p>
     </div>
   );
 };
