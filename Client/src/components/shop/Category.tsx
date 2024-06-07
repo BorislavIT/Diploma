@@ -4,11 +4,23 @@ import { FC } from "react";
 type CategoryProps = {
   label: string;
   image: StaticImageData;
+  toggleCategory: () => void;
+  isSelected: boolean;
 };
 
-const Category: FC<CategoryProps> = ({ label, image }) => {
+const Category: FC<CategoryProps> = ({
+  label,
+  image,
+  toggleCategory,
+  isSelected,
+}) => {
   return (
-    <div className="flex flex-col gap-2 flex-wrap cursor-pointer">
+    <div
+      className={`flex flex-col gap-2 flex-wrap cursor-pointer p-2 border-b-2 border-solid ${
+        isSelected ? " border-pink" : "border-transparent"
+      }`}
+      onClick={toggleCategory}
+    >
       <Image
         priority={true}
         src={image.src}

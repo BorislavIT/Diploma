@@ -47,7 +47,7 @@ const Login = () => {
       global.isAuthorized = true;
       router.push("/");
     } catch (error) {
-      toast.error("Unable to login");
+      toast.error((error as any).response?.data?.error as string);
     }
     actions.setSubmitting(false);
   };

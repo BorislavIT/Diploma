@@ -16,5 +16,9 @@ namespace Data.Models
         public string Password { get; set; } = "";
 
         public string token { get; set; } = "";
+
+        public ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public ICollection<Mp3> Mp3s { get; set; } = new List<Mp3>();
+
     }
 }

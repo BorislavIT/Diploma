@@ -48,7 +48,7 @@ body,
 
 .scrollbar-custom {
   scrollbar-width: thin;
-  scrollbar-color: #ff0000 transparent; /* Adjust colors as needed */
+  scrollbar-color: #1db954 transparent; /* Adjust colors as needed */
 }
 
 .scrollbar-custom::-webkit-scrollbar {
@@ -60,7 +60,7 @@ body,
 }
 
 .custom-audio-player .rhap_container {
-  background-color: #ff0000; /* Apply background color to the container */
+  background-color: #1db954; /* Apply background color to the container */
 }
 
 .custom-audio-player .rhap_progress-bar {
@@ -118,4 +118,21 @@ body,
   display: inline-block;
   white-space: nowrap;
   animation: scroll-left 10s linear infinite;
+}
+
+.justify-end .p-column-header-content {
+  justify-content: flex-end;
+}
+
+.input-file::-webkit-file-upload-button {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  height: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.input-file {
+  padding-left: 0;
 }

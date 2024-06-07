@@ -27,7 +27,7 @@ namespace Server.Controllers
         [HttpPost("Login", Name = "Login")]
         public async Task<IActionResult> Login(LoginForm loginForm)
         {
-           var account = await _accountService.Login(Response, loginForm);
+            var account = await _accountService.Login(Response, loginForm);
             return Ok(JsonSerializer.Serialize(account));
         }
 

@@ -19,7 +19,7 @@ const config: Config = {
         dark: "#1c1c1c",
         text: "white",
         blue: "#00ccff",
-        pink: "#FF0000",
+        pink: "#1DB954",
       },
     },
   },

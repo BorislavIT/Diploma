@@ -48,6 +48,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+app.UseCors(CORS_POLICY);
+
 app.UseMiddleware<AccessValidationMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseStaticFiles(new StaticFileOptions
@@ -64,7 +66,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors(CORS_POLICY);
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

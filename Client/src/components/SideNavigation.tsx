@@ -25,12 +25,27 @@ const SideNavigation = () => {
     {
       to: MODULES.SHOP.PATH,
       label: "Shop",
+      iconClass: "pi-shop",
+    },
+    {
+      to: MODULES.SHOPPING_CART.PATH,
+      label: "Checkout",
       iconClass: "pi-shopping-cart",
     },
     {
-      to: MODULES.ORDERS.PATH,
-      label: "Orders",
-      iconClass: "pi-book",
+      to: MODULES.MP3.PATH,
+      label: "Add new mp3",
+      iconClass: "pi-tiktok",
+    },
+    {
+      to: MODULES.PLAYLISTS.CREATE,
+      label: "Create playlist",
+      iconClass: "pi-youtube",
+    },
+    {
+      to: MODULES.PLAYLISTS.CREATE,
+      label: "View playlists",
+      iconClass: "pi-plus",
     },
   ];
 
@@ -51,16 +66,14 @@ const SideNavigation = () => {
       >
         <div className="flex flex-col gap-4 h-full items-start w-full">
           <div
-            className={`flex items-center w-full mb-4 ${
+            className={`flex cursor-pointer items-center w-full mb-4 ${
               isExpanded
                 ? "flex-row flex-nowrap justify-between"
                 : "flex-column flex-wrap justify-center"
             }`}
+            onClick={onToggleSideMenuClicked}
           >
-            <i
-              className="pi pi-bars text-lg cursor-pointer"
-              onClick={onToggleSideMenuClicked}
-            />
+            <i className="pi pi-bars text-lg" />
           </div>
           {menuLinks.map((ml, index) => (
             <Link
@@ -75,7 +88,9 @@ const SideNavigation = () => {
                   isExpanded && "pr-4"
                 }`}
               />
-              {isExpanded && <span className="text-nowrap">{ml.label}</span>}
+              {isExpanded && (
+                <span className="text-nowrap leading-5">{ml.label}</span>
+              )}
             </Link>
           ))}
         </div>

@@ -22,8 +22,15 @@ export const MODULES = {
   SHOP: {
     PATH: "/shop",
   },
-  ORDERS: {
-    PATH: "/orders",
+  MP3: {
+    PATH: "/mp3",
+  },
+  PLAYLISTS: {
+    CREATE: "/albums",
+    view: "/albums",
+  },
+  SHOPPING_CART: {
+    PATH: "/shoppingCart",
   },
 };
 
@@ -36,6 +43,9 @@ export const ENDPOINTS = {
   },
   MP3S: {
     PATH: "/Mp3",
+  },
+  SHOPPING_CART: {
+    PATH: "/ShoppingCart",
   },
 };
 

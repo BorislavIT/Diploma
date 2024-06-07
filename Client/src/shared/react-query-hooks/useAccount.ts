@@ -4,6 +4,7 @@ import { useShopQuery } from "../queries";
 
 type Acccount = {
   Username: string;
+  Id: number;
 };
 
 const useAccount = () => {

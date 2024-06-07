@@ -23,11 +23,12 @@ export const useShopQuery = <T>(
   queryKey: QueryKey,
   path: string,
   enabled: boolean,
-  options = {}
+  options: any = {}
 ) => {
   const { data, isLoading, error } = useQuery<T>(
     queryKey,
-    () => apiClient.get(path).then((res) => res.data),
+    () =>
+      apiClient.get(path, { params: options?.params }).then((res) => res.data),
     {
       enabled,
       staleTime: 5 * 60 * 1000, // 5 mins
@@ -45,17 +46,37 @@ export const useShopQuery = <T>(
   return { data, isLoading, error };
 };
 
-// Define the mutation function
 const mutationFn =
-  <T, Payload>(path: string) =>
+  <T, Payload>(path: string, options = {}) =>
   async (payload: Payload): Promise<T> => {
-    const res = await apiClient.post<T>(path, payload);
+    const res = await apiClient.post<T>(path, payload, options);
     return res.data;
   };
 
-export const useShopMutation = <T, Payload>(path: string) => {
+export const useShopMutation = <T, Payload>(
+  path: string,
+  options: any = {}
+) => {
   const mutation = useMutation<T, AxiosError, Payload>({
-    mutationFn: mutationFn<T, Payload>(path),
+    mutationFn: mutationFn<T, Payload>(path, options),
+  });
+
+  return mutation;
+};
+
+const deleteMutationFn =
+  <T, Payload>(path: string, options = {}) =>
+  async (payload: Payload): Promise<T> => {
+    const res = await apiClient.delete<T>(path, { data: payload, ...options });
+    return res.data;
+  };
+
+export const useShopDeleteMutation = <T, Payload>(
+  path: string,
+  options: any = {}
+) => {
+  const mutation = useMutation<T, AxiosError, Payload>({
+    mutationFn: deleteMutationFn<T, Payload>(path, options),
   });
 
   return mutation;

@@ -59,7 +59,7 @@ const Register = () => {
       global.isAuthorized = true;
       router.push("/");
     } catch (error) {
-      toast.error("Unable to register");
+      toast.error((error as any).response?.data?.error as string);
     }
     actions.setSubmitting(false);
   };
