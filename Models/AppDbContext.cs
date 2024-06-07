@@ -9,6 +9,8 @@ namespace Data
         public virtual DbSet<Mp3> Mp3s { get; set; }
         public virtual DbSet<Playlist> Playlists { get; set; }
         public virtual DbSet<PlaylistMp3> PlaylistMp3s { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<ShoppingCartMp3> ShoppingCartMp3s { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +32,21 @@ namespace Data
             builder.Entity<PlaylistMp3>()
                 .HasOne(pm => pm.Mp3)
                 .WithMany(m => m.PlaylistMp3s)
+                .HasForeignKey(pm => pm.Mp3Id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ShoppingCartMp3>()
+                .HasKey(pm => new { pm.ShoppingCartId, pm.Mp3Id });
+
+            builder.Entity<ShoppingCartMp3>()
+                .HasOne(pm => pm.ShoppingCart)
+                .WithMany(p => p.ShoppingCartMp3s)
+                .HasForeignKey(pm => pm.ShoppingCartId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ShoppingCartMp3>()
+                .HasOne(pm => pm.Mp3)
+                .WithMany(m => m.ShoppingCartMp3s)
                 .HasForeignKey(pm => pm.Mp3Id)
                 .OnDelete(DeleteBehavior.Restrict);
 

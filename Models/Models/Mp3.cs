@@ -24,5 +24,6 @@ namespace Data.Models
         public Account Account { get; set; }
 
         public ICollection<PlaylistMp3> PlaylistMp3s { get; set; } = new List<PlaylistMp3>();
+        public ICollection<ShoppingCartMp3> ShoppingCartMp3s { get; set; } = new List<ShoppingCartMp3>();
     }
 }

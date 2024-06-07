@@ -10,6 +10,9 @@ namespace Services.AutoMapper
         {
             CreateMap<Account, AccountDTO>();
             CreateMap<AccountDTO, Account>();
+
+            CreateMap<ShoppingCart, ShoppingCartDTO>();
+            CreateMap<ShoppingCartDTO, ShoppingCart>();
         }
     }
 }

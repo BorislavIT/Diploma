@@ -116,6 +116,39 @@ namespace Data.Migrations
                     b.ToTable("PlaylistMp3s");
                 });
 
+            modelBuilder.Entity("Data.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("Data.Models.ShoppingCartMp3", b =>
+                {
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Mp3Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShoppingCartId", "Mp3Id");
+
+                    b.HasIndex("Mp3Id");
+
+                    b.ToTable("ShoppingCartMp3s");
+                });
+
             modelBuilder.Entity("Data.Models.Mp3", b =>
                 {
                     b.HasOne("Data.Models.Account", "Account")
@@ -157,6 +190,36 @@ namespace Data.Migrations
                     b.Navigation("Playlist");
                 });
 
+            modelBuilder.Entity("Data.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("Data.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Data.Models.ShoppingCartMp3", b =>
+                {
+                    b.HasOne("Data.Models.Mp3", "Mp3")
+                        .WithMany("ShoppingCartMp3s")
+                        .HasForeignKey("Mp3Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Data.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("ShoppingCartMp3s")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Mp3");
+
+                    b.Navigation("ShoppingCart");
+                });
+
             modelBuilder.Entity("Data.Models.Account", b =>
                 {
                     b.Navigation("Mp3s");
@@ -167,11 +230,18 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Models.Mp3", b =>
                 {
                     b.Navigation("PlaylistMp3s");
+
+                    b.Navigation("ShoppingCartMp3s");
                 });
 
             modelBuilder.Entity("Data.Models.Playlist", b =>
                 {
                     b.Navigation("PlaylistMp3s");
+                });
+
+            modelBuilder.Entity("Data.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("ShoppingCartMp3s");
                 });
 #pragma warning restore 612, 618
         }

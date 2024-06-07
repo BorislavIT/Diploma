@@ -11,10 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICookieService, CookieService>();
 
@@ -28,8 +34,7 @@ builder.Services.AddCors((options) =>
     builder => builder.WithOrigins("http://localhost:3000")
                       .AllowAnyMethod()
                       .AllowAnyHeader()
-                      .AllowCredentials())
-        ;
+                      .AllowCredentials());
 });
 
 var app = builder.Build();
@@ -52,6 +57,20 @@ app.UseCors(CORS_POLICY);
 
 app.UseMiddleware<AccessValidationMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+string mp3FilesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Mp3Files");
+string imagesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Thumbnails");
+
+if (!Directory.Exists(mp3FilesDirectory))
+{
+    Directory.CreateDirectory(mp3FilesDirectory);
+}
+
+if (!Directory.Exists(imagesDirectory))
+{
+    Directory.CreateDirectory(imagesDirectory);
+}
+
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(

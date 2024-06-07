@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Http;
 using Services.Contracts;
+using Services.TokenHandlers;
 
 namespace Services
 {
@@ -14,6 +16,15 @@ namespace Services
                 Secure = true
             };
             response.Cookies.Append(key, value, option);
+        }
+
+        public (string username, DateTime expires) GetAuthTokenCookie(HttpRequest request)
+        {
+            var authCookie = request.Cookies[CookieNames.AUTH_TOKEN];
+
+            var (username, expires) = JWTTokenHandler.ValidateToken(authCookie);
+
+            return (username, expires);
         }
     }
 }
