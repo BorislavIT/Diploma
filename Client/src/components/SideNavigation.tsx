@@ -35,17 +35,12 @@ const SideNavigation = () => {
     {
       to: MODULES.MP3.PATH,
       label: "Add new mp3",
-      iconClass: "pi-tiktok",
+      iconClass: "pi-plus",
     },
     {
       to: MODULES.PLAYLISTS.CREATE,
       label: "Create playlist",
       iconClass: "pi-youtube",
-    },
-    {
-      to: MODULES.PLAYLISTS.CREATE,
-      label: "View playlists",
-      iconClass: "pi-plus",
     },
   ];
 
@@ -57,11 +52,11 @@ const SideNavigation = () => {
 
   return (
     <div
-      className={`h-[calc(90%)] min-h-[calc(90vh-32px)] invisible ease-in-out duration-300
+      className={`h-[calc(90%)] min-h-[calc(90vh-55px)] invisible ease-in-out duration-300
       ${isExpanded ? "w-56 min-w-56" : "w-16 min-w-16"}`}
     >
       <nav
-        className={`min-h-[calc(90vh-32px)] ease-in-out duration-300 overflow-hidden transform border border-solid border-pink h-0 rounded-md fixed visible z-50 flex flex-col p-4 items-center justify-between text-theme-text
+        className={`min-h-[calc(90vh-55px)] ease-in-out duration-300 overflow-hidden transform border border-solid border-pink h-0 rounded-md fixed visible z-50 flex flex-col p-4 items-center justify-between text-theme-text
         ${isExpanded ? "w-56 min-w-56" : "w-16 min-w-16"}`}
       >
         <div className="flex flex-col gap-4 h-full items-start w-full">

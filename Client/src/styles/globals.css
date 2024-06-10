@@ -136,3 +136,7 @@ body,
 .input-file {
   padding-left: 0;
 }
+
+body {
+  background-color: #1c1c1c;
+}

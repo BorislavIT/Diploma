@@ -1,8 +1,8 @@
 using Data;
 using Microsoft.AspNetCore.Mvc;
-using Server.Controllers.Requests;
 using Server.DTOs;
 using Services.Contracts;
+using Services.Requests;
 
 namespace Server.Controllers
 {

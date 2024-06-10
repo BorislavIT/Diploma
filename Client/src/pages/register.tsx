@@ -71,7 +71,7 @@ const Register = () => {
   }, []);
 
   return (
-    <div className="w-full flex h-auto justify-center items-center">
+    <div className="w-full flex justify-center items-center h-full">
       <div className="flex h-auto w-1/2 items-center justify-center flex-col">
         <Logo />
         <Formik

@@ -26,8 +26,7 @@ export const MODULES = {
     PATH: "/mp3",
   },
   PLAYLISTS: {
-    CREATE: "/albums",
-    view: "/albums",
+    CREATE: "/playlists",
   },
   SHOPPING_CART: {
     PATH: "/shoppingCart",

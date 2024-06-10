@@ -7,15 +7,30 @@ const MusicPlayer = () => {
   const { isExpanded } = useSideNav();
   const { url } = usePlayerContext();
 
+  const baseUrl = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_API_URL}/mp3`;
+  const extension = ".mp3";
+
+  const songName = url?.substring(
+    baseUrl.length + 1,
+    url.length - extension.length
+  );
+
   return (
-    <div className="bg-dark h-[10vh] w-full flex flex-row justify-center pb-4 px-4">
+    <div className="bg-dark h-[10vh] w-full flex flex-row flex-wrap justify-center pb-4 px-4">
       <div
-        className={`border-pink border rounded-md border-solid h-[calc(100% - 16px)] w-full ease-in-out duration-300 custom-audio-player ${
+        className={`h-10 w-full bg-pink text-white rounded-t-md flex justify-center items-center font-bold transition-all duration-300 ease-in-out  ${
+          !isExpanded ? "max-w-[1518px]" : "max-w-[1677px]"
+        }`}
+      >
+        {songName && <span>Currently playing - "{songName}"</span>}
+      </div>
+
+      <div
+        className={`border-pink border rounded-md rounded-t-none border-solid h-[calc(100% - 16px)] w-full ease-in-out duration-300 custom-audio-player ${
           !isExpanded ? "max-w-[1518px]" : "max-w-[1677px]"
         }`}
       >
         <AudioPlayer
-          autoPlay
           className="h-full"
           src={url || ""}
           onPlay={(e) => console.log("onPlay")}

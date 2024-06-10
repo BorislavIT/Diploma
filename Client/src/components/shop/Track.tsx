@@ -38,7 +38,7 @@ const Track: FC<{
     });
   };
 
-  const labelScrolling = url === combineMp3PathWithFile(name);
+  const labelScrolling = url === combineMp3PathWithFile(name + ".mp3");
 
   return (
     <div className="flex flex-col track gap-2 flex-wrap rounded-md border border-solid border-pink p-4 h-72 w-64 overflow-hidden relative">

@@ -13,6 +13,9 @@ namespace Services.AutoMapper
 
             CreateMap<ShoppingCart, ShoppingCartDTO>();
             CreateMap<ShoppingCartDTO, ShoppingCart>();
+
+            CreateMap<Playlist, PlaylistDTO>();
+            CreateMap<PlaylistDTO, Playlist>();
         }
     }
 }

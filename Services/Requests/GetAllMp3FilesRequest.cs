@@ -1,6 +1,6 @@
 ﻿using Data.Models.Enums;
 
-namespace Server.Controllers.Requests
+namespace Services.Requests
 {
     public class GetAllMp3FilesRequest
     {
