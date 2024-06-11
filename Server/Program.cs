@@ -1,4 +1,5 @@
 using Data;
+using Data.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Server.Middlewares;
@@ -46,6 +47,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var dbContext = services.GetRequiredService<AppDbContext>();
     dbContext.Database.Migrate();
+
+    AdminSeeder.Initialize(services);
 }
 
 if (app.Environment.IsDevelopment())

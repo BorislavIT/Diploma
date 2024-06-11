@@ -32,17 +32,17 @@ const loginSchema = Yup.object().shape({
 const Login = () => {
   const router = useRouter();
   const toast = useToast();
-  const mutation = useShopMutation<{ success: boolean }, LoginForm>(
-    `${ENDPOINTS.ACCOUNT.PATH}${ENDPOINTS.ACCOUNT.LOGIN}`
-  );
+  const { mutateAsync: signIn } = useShopMutation<
+    { success: boolean },
+    LoginForm
+  >(`${ENDPOINTS.ACCOUNT.PATH}${ENDPOINTS.ACCOUNT.LOGIN}`);
 
   const onSubmit = async (
     { username, password }: LoginForm,
     actions: FormikHelpers<LoginForm>
   ) => {
     try {
-      const res = await mutation.mutateAsync({ username, password });
-
+      await signIn({ username, password });
       toast.success(`Welcome ${username}`);
       global.isAuthorized = true;
       router.push("/");

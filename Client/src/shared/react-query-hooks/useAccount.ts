@@ -2,9 +2,15 @@ import { useRouter } from "next/router";
 import { ENDPOINTS, MODULES } from "../constants";
 import { useShopQuery } from "../queries";
 
+export enum Role {
+  USER,
+  ADMINISTRATOR,
+}
+
 type Acccount = {
   Username: string;
   Id: number;
+  Role: Role;
 };
 
 const useAccount = () => {

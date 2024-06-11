@@ -3,6 +3,8 @@ import { useSideNav } from "@/contexts/SideNavigationContext";
 import { COOKIE_NAMES, MODULES, breakpoints } from "@/shared/constants";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import useAccount, { Role } from "@/shared/react-query-hooks/useAccount";
+import { useEffect, useState } from "react";
 
 type MenuLink = {
   to: string;
@@ -11,7 +13,9 @@ type MenuLink = {
 };
 
 const SideNavigation = () => {
+  const { data: user } = useAccount();
   const { isExpanded, setIsExpanded } = useSideNav();
+  const [menuLinks, setMenuLinks] = useState<MenuLink[]>([]);
   const toast = useToast();
 
   const onToggleSideMenuClicked = () => {
@@ -21,28 +25,34 @@ const SideNavigation = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const menuLinks: MenuLink[] = [
-    {
-      to: MODULES.SHOP.PATH,
-      label: "Shop",
-      iconClass: "pi-shop",
-    },
-    {
-      to: MODULES.SHOPPING_CART.PATH,
-      label: "Checkout",
-      iconClass: "pi-shopping-cart",
-    },
-    {
-      to: MODULES.MP3.PATH,
-      label: "Add new mp3",
-      iconClass: "pi-plus",
-    },
-    {
-      to: MODULES.PLAYLISTS.CREATE,
-      label: "Create playlist",
-      iconClass: "pi-youtube",
-    },
-  ];
+  useEffect(() => {
+    const initialMenuLinks = [
+      {
+        to: MODULES.SHOP.PATH,
+        label: "Shop",
+        iconClass: "pi-shop",
+      },
+      {
+        to: MODULES.SHOPPING_CART.PATH,
+        label: "Checkout",
+        iconClass: "pi-shopping-cart",
+      },
+      {
+        to: MODULES.PLAYLISTS.CREATE,
+        label: "Create playlist",
+        iconClass: "pi-youtube",
+      },
+    ];
+    if (user?.Role === Role.ADMINISTRATOR) {
+      initialMenuLinks.push({
+        to: MODULES.MP3.PATH,
+        label: "Add new mp3",
+        iconClass: "pi-plus",
+      });
+    }
+
+    setMenuLinks(initialMenuLinks);
+  }, [user]);
 
   const onLogoutClicked = () => {
     Cookies.remove(COOKIE_NAMES.AUTH_TOKEN, { path: "/" });

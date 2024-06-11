@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data;
 using Data.Models;
+using Data.Models.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Server.DTOs;
@@ -37,7 +38,7 @@ namespace Services
 
             var authToken = JWTTokenHandler.GenerateToken(loginForm.Username, TOKEN_VALID_MINUTES);
 
-            account.token = authToken;
+            account.Token = authToken;
 
             _dbContext.Accounts.Update(account);
             await _dbContext.SaveChangesAsync();
@@ -80,7 +81,7 @@ namespace Services
 
             var authToken = JWTTokenHandler.GenerateToken(registerForm.Username, TOKEN_VALID_MINUTES);
 
-            var account = new Account { Username = registerForm.Username, Password = PasswordHasher.HashPassword(registerForm.Password), token = authToken };
+            var account = new Account { Username = registerForm.Username, Password = PasswordHasher.HashPassword(registerForm.Password), Token = authToken, Role = Role.USER };
 
             await _dbContext.Accounts.AddAsync(account);
             await _dbContext.SaveChangesAsync();

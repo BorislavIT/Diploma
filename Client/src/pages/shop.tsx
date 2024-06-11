@@ -6,7 +6,8 @@ import Category from "@/components/shop/Category";
 import LargeLoader from "@/components/loaders/LargeLoader";
 import Search from "@/components/shop/Search";
 import useMp3s from "@/components/shop/useMp3s";
-import useAddShoppingCartItem from "@/components/shop/useAddShoppingCartItem";
+import useAddShoppingCartMp3 from "@/components/shop/useAddShoppingCartItem";
+import useAddPlaylistMp3 from "@/components/shop/useAddPlaylistMp3";
 
 const Shop = () => {
   const [search, setSearch] = useState<string>("");
@@ -14,7 +15,8 @@ const Shop = () => {
 
   const { data, isLoading } = useMp3s(selectedCategory, search);
 
-  const mutation = useAddShoppingCartItem();
+  const shoppingCartMutation = useAddShoppingCartMp3();
+  const playlistMutation = useAddPlaylistMp3();
 
   const toggleCategory = (number: number) => {
     setSelectedCategory((prevSelectedCategory) => {
@@ -44,13 +46,18 @@ const Shop = () => {
           toggleCategory={() => toggleCategory(1)}
         />
       </div>
+      {data?.length === 0 && <span>No mp3s available for sale.</span>}
       {isLoading ? (
         <LargeLoader />
       ) : (
         <div className="mt-5 flex flex-row flex-wrap scrollbar-custom gap-y-6 overflow-auto p-4 max-h-[calc(100%-354px)] mb-4 gap-x-5">
           {data?.map((mp3) => (
             <div key={mp3.name}>
-              <Track mp3={mp3} addItemToShoppingCart={mutation.mutateAsync} />
+              <Track
+                mp3={mp3}
+                addMp3ToShoppingCart={shoppingCartMutation.mutateAsync}
+                addMp3ToPlaylist={playlistMutation.mutateAsync}
+              />
             </div>
           ))}
         </div>

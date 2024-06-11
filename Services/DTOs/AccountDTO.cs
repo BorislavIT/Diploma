@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Data.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Server.DTOs
 {
@@ -10,5 +11,7 @@ namespace Server.DTOs
         [MinLength(3)]
         [MaxLength(40)]
         public string Username { get; set; }
+
+        public Role  Role { get; set; }
     }
 }

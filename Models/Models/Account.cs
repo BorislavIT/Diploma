@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Data.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Data.Models
 {
@@ -15,10 +16,11 @@ namespace Data.Models
         [Required]
         public string Password { get; set; } = "";
 
-        public string token { get; set; } = "";
+        public string Token { get; set; } = "";
+
+        public Role Role { get; set; }
 
         public ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
         public ICollection<Mp3> Mp3s { get; set; } = new List<Mp3>();
-
     }
 }

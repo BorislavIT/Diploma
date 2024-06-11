@@ -5,7 +5,7 @@ import "react-h5-audio-player/lib/styles.css";
 
 const MusicPlayer = () => {
   const { isExpanded } = useSideNav();
-  const { url } = usePlayerContext();
+  const { url, setUrl } = usePlayerContext();
 
   const baseUrl = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_API_URL}/mp3`;
   const extension = ".mp3";
@@ -33,7 +33,7 @@ const MusicPlayer = () => {
         <AudioPlayer
           className="h-full"
           src={url || ""}
-          onPlay={(e) => console.log("onPlay")}
+          onEnded={() => setUrl("")}
         />
       </div>
     </div>

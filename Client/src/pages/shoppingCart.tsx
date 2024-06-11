@@ -1,25 +1,32 @@
 import React from "react";
 import Button from "@/components/Button";
 import useShoppingCart from "@/components/shop/useShoppingCart";
-import useRemoveShoppingCartItem from "@/components/shop/useRemoveShoppingCartItem";
+import useRemoveShoppingCartMp3 from "@/components/shop/useRemoveShoppingCartItem";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/contexts/ToastContext";
 
 const ShoppingCart = () => {
   const { data } = useShoppingCart();
   const queryClient = useQueryClient();
-  const mutate = useRemoveShoppingCartItem();
+  const { mutateAsync: removeShoppingCartMp3 } = useRemoveShoppingCartMp3();
+  const toast = useToast();
 
   const quantityBodyTemplate = () => {
     return <span>1</span>;
   };
 
   const removeCartItem = async (mp3: any) => {
-    await mutate.mutateAsync(mp3);
-    queryClient.invalidateQueries({
-      queryKey: ["getShoppingCart", global.isAuthorized],
-    });
+    try {
+      await removeShoppingCartMp3(mp3);
+      queryClient.invalidateQueries({
+        queryKey: ["getShoppingCart", global.isAuthorized],
+      });
+      toast.success(`Successfully removed ${mp3.name} from shopping cart`);
+    } catch (error) {
+      toast.error((error as any).response?.data?.error as string);
+    }
   };
 
   const renderShoppingCartItemActions = (mp3: any) => {
@@ -28,7 +35,7 @@ const ShoppingCart = () => {
         <Button
           onClick={() => removeCartItem(mp3)}
           icon="pi pi-trash"
-          className="border-none w-auto text-red-500"
+          className="border-none w-auto"
         />
       </div>
     );
@@ -37,7 +44,7 @@ const ShoppingCart = () => {
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
-      {data?.mp3s.length === 0 && <span>Empty shopping cart.</span>}
+      {data?.mp3s.length === 0 && <span>Your shopping cart is empty.</span>}
       {data?.mp3s?.length! > 0 && (
         <>
           <div className="overflow-auto scrollbar-custom max-h-[calc(100vh-420px)]">

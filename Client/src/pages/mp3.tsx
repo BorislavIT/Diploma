@@ -8,6 +8,8 @@ import * as Yup from "yup";
 import FormikField from "@/components/formik/FormikField";
 import Button from "@/components/Button";
 import useAccount from "@/shared/react-query-hooks/useAccount";
+import { useState } from "react";
+import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 
 export enum Mp3Type {
   Song,
@@ -53,24 +55,34 @@ const Mp3 = () => {
   const toast = useToast();
   const { data } = useAccount();
   const queryClient = useQueryClient();
-  const mutation = useShopMutation<{ success: boolean }, FormData>(
-    `${ENDPOINTS.MP3S.PATH}`,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const { mutateAsync: addMp3 } = useShopMutation<
+    { success: boolean },
+    FormData
+  >(`${ENDPOINTS.MP3S.PATH}`, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  const mp3Types = [
+    { label: "Song", value: Mp3Type.Song },
+    { label: "Podcast", value: Mp3Type.Podcast },
+  ];
+
+  const [mp3Type, setMp3Type] = useState({
+    label: "Song",
+    value: Mp3Type.Song,
+  });
 
   const onSubmit = async (
-    { name, price, mp3Type, author, mp3File, thumbnail }: Mp3Form,
+    { name, price, author, mp3File, thumbnail }: Mp3Form,
     actions: FormikHelpers<Mp3Form>
   ) => {
     try {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("price", price.toString());
-      formData.append("mp3Type", mp3Type.toString());
+      formData.append("mp3Type", mp3Type.value.toString());
       formData.append("author", author);
       formData.append("accountId", (data?.Id || 0).toString());
       if (mp3File) {
@@ -80,12 +92,12 @@ const Mp3 = () => {
         formData.append("Thumbnail", thumbnail);
       }
 
-      const res = await mutation.mutateAsync(formData);
+      await addMp3(formData);
       queryClient.invalidateQueries({
         queryKey: ["getAllMp3s", global.isAuthorized],
       });
 
-      toast.success(`Successfully added ${name}.`);
+      toast.success(`Successfully created ${name}.`);
       router.push("/");
     } catch (error) {
       toast.error((error as any).response?.data?.error as string);
@@ -122,6 +134,15 @@ const Mp3 = () => {
                 errors={errors}
                 touched={touched}
               />
+              <div className="w-full h-auto">
+                <label>Mp3 Type</label>
+                <Dropdown
+                  className="mt-0 w-full"
+                  value={mp3Type}
+                  options={mp3Types}
+                  onChange={(e: DropdownChangeEvent) => setMp3Type(e.value)}
+                />
+              </div>
               <FormikField
                 name="mp3File"
                 label="Mp3 File"

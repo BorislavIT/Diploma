@@ -1,6 +1,6 @@
-﻿using Azure.Core;
-using Data;
+﻿using Data;
 using Data.Models;
+using Data.Models.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Server.Controllers.Requests;
@@ -63,6 +63,13 @@ namespace Services
             var mp3File = request.Mp3File;
             var imageFile = request.Thumbnail;
 
+            var (username, expires) = _cookieService.GetAuthTokenCookie(httpRequest);
+
+            var account = _dbContext.Accounts.First(a => a.Username == username);
+
+            if (account.Role != Role.ADMINISTRATOR)
+                throw new UnauthorizedAccessException("Only administrators can upload MP3 files.");
+
             if (mp3File == null || mp3File.Length == 0)
                 throw new ArgumentException("No MP3 file uploaded.");
 
@@ -109,11 +116,9 @@ namespace Services
                     await imageFile.CopyToAsync(imageStream);
                 }
 
-                var (username, expires) = _cookieService.GetAuthTokenCookie(httpRequest);
-
                 var mp3 = new Mp3
                 {
-                    AccountId = _dbContext.Accounts.First(a => a.Username == username).Id,
+                    AccountId = account.Id,
                     Name = request.Name,
                     Author = request.Author,
                     Price = request.Price,

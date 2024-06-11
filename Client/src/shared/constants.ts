@@ -46,6 +46,9 @@ export const ENDPOINTS = {
   SHOPPING_CART: {
     PATH: "/ShoppingCart",
   },
+  PLAYLIST: {
+    PATH: "/Playlist",
+  },
 };
 
 export const COOKIE_NAMES = {

@@ -64,7 +64,7 @@ public class AccessValidationMiddleware
             throw new UnauthorizedAccessException("Invalid user");
         }
 
-        if (account.token != token)
+        if (account.Token != token)
         {
             throw new UnauthorizedAccessException("Token is invalid");
         }

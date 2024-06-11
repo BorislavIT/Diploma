@@ -1,5 +1,6 @@
 using Data;
 using Microsoft.AspNetCore.Mvc;
+using Server.DTOs;
 using Services.Contracts;
 
 namespace Server.Controllers
@@ -22,9 +23,25 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPlaylist()
         {
-            var shoppingCart = await _playlistService.GetPlaylist(Request);
+            var playlist = await _playlistService.GetPlaylist(Request);
             
-            return Ok(shoppingCart);
+            return Ok(playlist);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMp3ToPlaylist(Mp3DTO mp3)
+        {
+            var playlist = await _playlistService.AddMp3ToPlaylist(Request, mp3);
+
+            return Ok(playlist);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveMp3FromPlaylist(Mp3DTO mp3)
+        {
+            var playlist = await _playlistService.RemoveMp3FromPlaylist(Request, mp3);
+
+            return Ok(playlist);
         }
     }
 }
