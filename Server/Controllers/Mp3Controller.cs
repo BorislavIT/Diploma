@@ -1,9 +1,5 @@
-using Data;
-using Data.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Server.Controllers.Requests;
-using Server.DTOs;
 using Services.Contracts;
 using Services.Requests;
 
@@ -15,7 +11,7 @@ namespace Server.Controllers
     {
         private readonly IMp3Service _mp3Service;
 
-        public Mp3Controller(ICookieService cookieService, IMp3Service mp3Service)
+        public Mp3Controller(IMp3Service mp3Service)
         {
             _mp3Service = mp3Service;
         }

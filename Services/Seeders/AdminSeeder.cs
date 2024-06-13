@@ -13,7 +13,7 @@ namespace Data.Seeders
         {
             var username = "admin";
             var password = "admin";
-            var token = JWTTokenHandler.GenerateToken(username, 60 * 24);
+            var token = JWTTokenHandler.GenerateToken(username, 24);
 
             var account = new Account
             {

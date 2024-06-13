@@ -17,7 +17,7 @@ namespace Services
         private readonly ICookieService _cookieService;
         private readonly IMapper _mapper;
 
-        private const int TOKEN_VALID_MINUTES = 60 * 24;
+        private const int TOKEN_VALID_HOURS =24;
 
         public AccountService(AppDbContext dbContext, ICookieService cookieService, IMapper mapper)
         {
@@ -36,14 +36,14 @@ namespace Services
 
             }
 
-            var authToken = JWTTokenHandler.GenerateToken(loginForm.Username, TOKEN_VALID_MINUTES);
+            var authToken = JWTTokenHandler.GenerateToken(loginForm.Username, TOKEN_VALID_HOURS);
 
             account.Token = authToken;
 
             _dbContext.Accounts.Update(account);
             await _dbContext.SaveChangesAsync();
 
-            _cookieService.CreateCookie(response, CookieNames.AUTH_TOKEN, authToken, TOKEN_VALID_MINUTES);
+            _cookieService.CreateCookie(response, CookieNames.AUTH_TOKEN, authToken, TOKEN_VALID_HOURS);
 
             return _mapper.Map<AccountDTO>(account);
         }
@@ -79,14 +79,14 @@ namespace Services
                 throw new UnauthorizedAccessException("Invalid credentials.");
             }
 
-            var authToken = JWTTokenHandler.GenerateToken(registerForm.Username, TOKEN_VALID_MINUTES);
+            var authToken = JWTTokenHandler.GenerateToken(registerForm.Username, TOKEN_VALID_HOURS);
 
             var account = new Account { Username = registerForm.Username, Password = PasswordHasher.HashPassword(registerForm.Password), Token = authToken, Role = Role.USER };
 
             await _dbContext.Accounts.AddAsync(account);
             await _dbContext.SaveChangesAsync();
 
-            _cookieService.CreateCookie(response, CookieNames.AUTH_TOKEN, authToken, TOKEN_VALID_MINUTES);
+            _cookieService.CreateCookie(response, CookieNames.AUTH_TOKEN, authToken, TOKEN_VALID_HOURS);
 
             return _mapper.Map<AccountDTO>(account);
         }

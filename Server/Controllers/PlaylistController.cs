@@ -1,4 +1,3 @@
-using Data;
 using Microsoft.AspNetCore.Mvc;
 using Server.DTOs;
 using Services.Contracts;
@@ -9,14 +8,10 @@ namespace Server.Controllers
     [Route("[controller]")]
     public class PlaylistController : ControllerBase
     {
-        private readonly AppDbContext _dbContext;
-        private readonly ICookieService _cookieService;
         private readonly IPlaylistService _playlistService;
 
-        public PlaylistController(AppDbContext dbContext, ICookieService cookieService, IPlaylistService playlistService)
+        public PlaylistController(IPlaylistService playlistService)
         {
-            _dbContext = dbContext;
-            _cookieService = cookieService;
             _playlistService = playlistService;
         }
 

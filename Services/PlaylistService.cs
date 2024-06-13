@@ -37,6 +37,7 @@ namespace Services
             var account = await _accountService.Identify(request);
 
             var playlist = await _dbContext.Playlists
+                .Where(pl => pl.AccountId == account.Id)
                 .Include(cart => cart.PlaylistMp3s) 
                 .Select(cart => new PlaylistDTO
                 {
@@ -66,7 +67,7 @@ namespace Services
             }
 
             return playlist;
-        }
+        }   
 
         public async Task<PlaylistDTO> AddMp3ToPlaylist(HttpRequest httpRequest, Mp3DTO mp3)
         {
@@ -78,7 +79,7 @@ namespace Services
                 Mp3Id = mp3.Id
             };
 
-            var existingMp3 = await _dbContext.PlaylistMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id);
+            var existingMp3 = await _dbContext.PlaylistMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id && m.PlaylistId == playlist.Id);
 
             if (existingMp3 != null)
             {
@@ -95,7 +96,7 @@ namespace Services
         {
             var playlist = await GetPlaylist(httpRequest);
 
-            var mp3ToRemove = await _dbContext.PlaylistMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id);
+            var mp3ToRemove = await _dbContext.PlaylistMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id && m.PlaylistId == playlist.Id);
 
             if (mp3ToRemove != null)
             {

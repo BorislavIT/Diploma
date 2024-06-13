@@ -18,7 +18,7 @@ namespace Server.Controllers
         {
             _dbContext = dbContext;
             _cookieService = cookieService;
-            this._shoppingCartService = shoppingCartService;
+            _shoppingCartService = shoppingCartService;
         }
 
         [HttpGet]

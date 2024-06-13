@@ -28,18 +28,20 @@ namespace Services
             var account = await _accountService.Identify(httpRequest);
 
             var shoppingCart = await _dbContext.ShoppingCarts
+                  .Where(sc => sc.AccountId == account.Id)
                   .Include(cart => cart.ShoppingCartMp3s)
                   .Select(cart => new ShoppingCartDTO
                   {
                       Id = cart.Id,
                       AccountId = cart.AccountId,
-                      Mp3s = cart.ShoppingCartMp3s.Select(scmp3 => new Mp3DTO {
-                      Name = scmp3.Mp3.Name,
-                      Id = scmp3.Mp3.Id,
-                      Price = scmp3.Mp3.Price,
-                      Mp3Type = scmp3.Mp3.Mp3Type,
-                      Author = scmp3.Mp3.Author,
-                      AccountId = cart.AccountId,
+                      Mp3s = cart.ShoppingCartMp3s.Select(scmp3 => new Mp3DTO
+                      {
+                          Name = scmp3.Mp3.Name,
+                          Id = scmp3.Mp3.Id,
+                          Price = scmp3.Mp3.Price,
+                          Mp3Type = scmp3.Mp3.Mp3Type,
+                          Author = scmp3.Mp3.Author,
+                          AccountId = cart.AccountId,
                       }).ToList()
                   })
                  .FirstOrDefaultAsync();
@@ -67,9 +69,9 @@ namespace Services
                 Mp3Id = mp3.Id
             };
 
-            var existingMp3 = await _dbContext.ShoppingCartMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id);
+            var existingMp3 = await _dbContext.ShoppingCartMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id && m.ShoppingCartId == shoppingCart.Id);
 
-            if(existingMp3 != null)
+            if (existingMp3 != null)
             {
                 return shoppingCart;
             }
@@ -84,11 +86,11 @@ namespace Services
         {
             var shoppingCart = await GetShoppingCart(httpRequest);
 
-            var mp3ToRemove = await _dbContext.ShoppingCartMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id);
+            var mp3ToRemove = await _dbContext.ShoppingCartMp3s.FirstOrDefaultAsync(m => m.Mp3Id == mp3.Id && m.ShoppingCartId == shoppingCart.Id);
 
-            if(mp3ToRemove != null)
+            if (mp3ToRemove != null)
             {
-                 _dbContext.ShoppingCartMp3s.Remove(mp3ToRemove);
+                _dbContext.ShoppingCartMp3s.Remove(mp3ToRemove);
                 await _dbContext.SaveChangesAsync();
             }
 
