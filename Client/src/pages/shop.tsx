@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Eminem from "../shared/pictures/eminem.jpg";
-import Podcast from "../shared/pictures/podcast.jpg";
+import Podcast from "../shared/pictures/joeRogan.jpg";
 import Track from "@/components/shop/Track";
 import Category from "@/components/shop/Category";
 import LargeLoader from "@/components/loaders/LargeLoader";
