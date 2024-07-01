@@ -50,3 +50,6 @@
 
 /Services/bin
 /Services/obj
+
+/Server/Mp3Files/*
+/Server/Thumbnails/*
