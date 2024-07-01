@@ -1,5 +1,6 @@
 import { usePlayerContext } from "@/contexts/PlayerContext";
 import { useSideNav } from "@/contexts/SideNavigationContext";
+import { encodeUrl } from "@/shared/utilities";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
@@ -16,7 +17,7 @@ const MusicPlayer = () => {
   );
 
   return (
-    <div className="bg-dark h-[10vh] w-full flex flex-row flex-wrap justify-center pb-4 px-4">
+    <div className="bg-dark h-[10vh] w-full flex flex-col items-center flex-nowrap justify-center pb-4 px-4">
       <div
         className={`h-10 w-full bg-pink text-white rounded-t-md flex justify-center items-center font-bold transition-all duration-300 ease-in-out  ${
           !isExpanded ? "max-w-[1518px]" : "max-w-[1677px]"
@@ -32,7 +33,7 @@ const MusicPlayer = () => {
       >
         <AudioPlayer
           className="h-full"
-          src={url || ""}
+          src={encodeUrl(url!) ?? ""}
           onEnded={() => setUrl("")}
         />
       </div>
